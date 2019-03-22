@@ -32,12 +32,15 @@ repositories {
     jcenter()
     maven { url 'https://kotlin.bintray.com/ktor' }
     maven { url 'https://kotlin.bintray.com/kotlinx' }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
+    //Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+
+    //Ktor
     implementation "io.ktor:ktor-server-netty:$ktor_version"
-    implementation "ch.qos.logback:logback-classic:$logback_version"
     implementation "io.ktor:ktor-server-core:$ktor_version"
     implementation "io.ktor:ktor-locations:$ktor_version"
     implementation "io.ktor:ktor-metrics:$ktor_version"
@@ -49,6 +52,14 @@ dependencies {
     implementation "io.ktor:ktor-client-json-jvm:$ktor_version"
     implementation "io.ktor:ktor-client-gson:$ktor_version"
     implementation "io.ktor:ktor-client-logging-jvm:$ktor_version"
+
+    //Validation
+    implementation "com.github.apmath-web:validation:master-SNAPSHOT"
+
+    //Logging
+    implementation "ch.qos.logback:logback-classic:$logback_version"
+
+    //Tests
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
     testCompile "io.ktor:ktor-client-mock:$ktor_version"
     testCompile "io.ktor:ktor-client-mock-jvm:$ktor_version"
