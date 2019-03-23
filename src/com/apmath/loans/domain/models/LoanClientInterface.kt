@@ -1,6 +1,6 @@
-package com.apmath.loans.domain
+package com.apmath.loans.domain.models
 
-import com.apmath.loans.domain.data.Money
+import com.apmath.loans.domain.models.data.Money
 
 interface LoanClientInterface {
     val amount: Money

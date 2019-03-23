@@ -1,4 +1,4 @@
-package com.apmath.loans.domain.connections.request
+package com.apmath.loans.domain.models.connections.request
 
 interface CalculationsPaymentInterface {
     val loanInterface: LoanInterface

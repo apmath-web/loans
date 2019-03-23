@@ -1,3 +1,3 @@
-package com.apmath.loans.domain.data
+package com.apmath.loans.domain.models.data
 
 inline class Currency(val currencyCode: String)

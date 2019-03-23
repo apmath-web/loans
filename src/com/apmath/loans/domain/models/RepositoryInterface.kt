@@ -1,4 +1,4 @@
-package com.apmath.loans.domain
+package com.apmath.loans.domain.models
 
 interface RepositoryInterface {
     fun get(id: Int): LoanEmployeeInterface
