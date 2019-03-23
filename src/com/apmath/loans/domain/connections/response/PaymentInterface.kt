@@ -1,4 +1,4 @@
-package com.apmath.loans.domain
+package com.apmath.loans.domain.connections.response
 
 import com.apmath.loans.domain.data.Money
 import com.apmath.loans.domain.data.Type
