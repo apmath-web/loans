@@ -1,4 +1,6 @@
-package com.apmath.loans.domain.models
+package com.apmath.loans.domain.repositories
+
+import com.apmath.loans.domain.models.LoanEmployeeInterface
 
 interface RepositoryInterface {
     fun get(id: Int): LoanEmployeeInterface
