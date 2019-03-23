@@ -13,7 +13,4 @@ interface LoanClientInterface {
     val term: Int
     val interest: Money
     val date: String
-
-    fun getPayments(type: Type?): List<ResponsePaymentInterface>
-    fun writeOf(paymentRequest: RequestPaymentInterface)
 }
