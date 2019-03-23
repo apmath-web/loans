@@ -6,6 +6,9 @@ import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Type
 
 interface LoanClientInterface {
+    var id: Int?
+    val isFinished: Boolean
+
     val amount: Money
     val term: Int
     val interest: Money
