@@ -7,7 +7,7 @@ import com.apmath.loans.domain.exceptions.runtime.StoreIdentifiedLoanException
 import com.apmath.loans.domain.models.LoanEmployeeInterface
 
 class Repository : RepositoryInterface {
-    private val identity: Int = 1
+    private var identity: Int = 1
     private val loans: HashMap<Int, LoanEmployeeInterface> = hashMapOf()
 
     override fun get(id: Int): LoanEmployeeInterface {
