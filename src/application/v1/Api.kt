@@ -7,7 +7,9 @@ import io.ktor.routing.get
 import io.ktor.routing.route
 
 internal fun Routing.v1() {
+
     v1Info()
+    // other route groups here
 }
 
 private fun Routing.v1Info() {
