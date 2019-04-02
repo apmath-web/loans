@@ -9,5 +9,4 @@ class LoanClient(
     override val term: Int,
     override val interest: Money,
     override val date: String
-) : LoanClientInterface {
-}
+) : LoanClientInterface
