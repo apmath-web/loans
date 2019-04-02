@@ -1,5 +1,6 @@
-package com.apmath.loans.domain.models.connections.response
+package com.apmath.loans.infrastructure.aplications.response
 
+import com.apmath.loans.domain.models.application.response.ApplicationInterface
 import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Status
@@ -9,5 +10,4 @@ class Application(
     override val currency: Currency,
     override val period: Int,
     override val status: Status
-) : ApplicationInterface {
-}
+) : ApplicationInterface
