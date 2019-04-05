@@ -26,6 +26,9 @@ class LoanEmployee(
             }
         }
 
+    override var completed: Boolean = false
+        private set
+
     private val payments: MutableList<ResponsePaymentInterface> = arrayListOf()
 
     override fun getPayments(type: Type?): List<ResponsePaymentInterface> {

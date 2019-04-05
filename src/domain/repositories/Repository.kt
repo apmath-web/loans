@@ -25,8 +25,8 @@ class Repository : RepositoryInterface {
     override fun remove(loan: LoanEmployeeInterface) {
         when {
             loan.id == null                         -> throw RemoveUnidentifiedLoanException()
-            !loan.isFinished                        -> throw RemoveUnfinishedLoanException()
-            !this.loans.containsKey(loan.id as Int)  -> throw RemoveAbsentLoanException()
+            !loan.completed                         -> throw RemoveUnfinishedLoanException()
+            !this.loans.containsKey(loan.id as Int) -> throw RemoveAbsentLoanException()
         }
 
         this.loans.remove(loan.id)
