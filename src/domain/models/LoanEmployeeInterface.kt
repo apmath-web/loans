@@ -11,7 +11,6 @@ interface LoanEmployeeInterface : LoanClientInterface {
     val regularPaymentAmount: Money
     val remainBody: Money
     val remainingTerm: Int
-    val completed: Boolean
 
     fun getPayments(type: Type?): List<ResponsePaymentInterface>
     fun writeOf(paymentRequest: RequestPaymentInterface)

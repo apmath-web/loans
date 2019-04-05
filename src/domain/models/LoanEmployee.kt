@@ -12,7 +12,6 @@ class LoanEmployee(
     override val regularPaymentAmount: Money,
     override val remainBody: Money,
     override val remainingTerm: Int,
-    override val completed: Boolean,
     override val amount: Money,
     override val term: Int,
     override val interest: Money,
@@ -26,9 +25,6 @@ class LoanEmployee(
                 throw ChangeIdentifiedCreditIdException()
             }
         }
-
-    override var isFinished: Boolean = false
-        private set
 
     private val payments: MutableList<ResponsePaymentInterface> = arrayListOf()
 
