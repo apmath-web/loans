@@ -5,6 +5,9 @@ import com.apmath.loans.domain.models.calculation.response.PaymentInterface as R
 import com.apmath.loans.domain.models.data.Money
 
 interface LoanClientInterface {
+    val clientId: Int
+    val applicationId: Int
+
     val amount: Money
     val term: Int
     val interest: Money
