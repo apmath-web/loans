@@ -9,10 +9,12 @@ interface LoanEmployeeInterface : LoanClientInterface {
     //also LoanClientInterface here
     var id: Int?
 
+    val interest: Money
     val rounding: Int
     val regularPaymentAmount: Money
     val remainBody: Money
     val remainingTerm: Int
+    val completed: Boolean
 
     fun getPayments(type: Type?): List<ResponsePaymentInterface>
     fun writeOf(paymentRequest: RequestPaymentInterface)

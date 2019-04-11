@@ -9,9 +9,7 @@ interface LoanClientInterface {
     val applicationId: Int
 
     val amount: Money
-    val term: Int
-    val interest: Int
     val currency: Currency
+    val term: Int
     val date: String
-    val completed: Boolean
 }
