@@ -1,6 +1,6 @@
 package com.apmath.loans.domain.services
 
-import com.apmath.loans.domain.models.Loan
+import com.apmath.loans.domain.models.LoanClient
 import com.apmath.loans.infrastructure.connections.ServiceManager
 import com.apmath.loans.infrastructure.fetchers.ApplicationsFetcher
 import com.apmath.loans.infrastructure.fetchers.CalculationFetcher
@@ -17,7 +17,7 @@ class LoanService(
     private val clientsFetcher: ClientsFetcher,
     private val interestFetcher: InterestFetcher
 ) : LoanServiceInterface {
-    override fun add(loan: Loan): Int {
+    override fun add(loan: LoanClient): Int {
         return runBlocking {
             val applicationResult = async {
                 applicationsFetcher.isApproved(loan.applicationId)
