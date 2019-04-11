@@ -9,8 +9,6 @@ class LoanClient(
 
     override val amount: Money,
     override val term: Int,
-    override val interest: Money,
     override val currency: Currency,
-    override val date: String,
-    override val completed: Boolean
+    override val date: String
 ) : LoanClientInterface
