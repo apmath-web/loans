@@ -7,6 +7,8 @@ import com.apmath.loans.domain.models.data.Type
 
 interface LoanEmployeeInterface : LoanClientInterface {
     //also LoanClientInterface here
+    var id: Int?
+
     val rounding: Int
     val regularPaymentAmount: Money
     val remainBody: Money

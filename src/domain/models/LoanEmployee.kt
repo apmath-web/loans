@@ -1,6 +1,7 @@
 package domain.models
 
 import com.apmath.loans.domain.models.LoanEmployeeInterface
+import com.apmath.loans.domain.models.data.Currency
 import domain.exceptions.runtime.ChangeIdentifiedCreditIdException
 import com.apmath.loans.domain.models.PaymentInterface as RequestPaymentInterface
 import com.apmath.loans.domain.models.calculation.response.PaymentInterface as ResponsePaymentInterface
@@ -8,14 +9,16 @@ import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Type
 
 class LoanEmployee(
-    override val rounding: Int,
-    override val regularPaymentAmount: Money,
-    override val remainBody: Money,
-    override val remainingTerm: Int,
     override val amount: Money,
     override val term: Int,
     override val interest: Money,
-    override val date: String
+    override val currency: Currency,
+    override val date: String,
+
+    override val rounding: Int,
+    override val regularPaymentAmount: Money,
+    override val remainBody: Money,
+    override val remainingTerm: Int
 ) : LoanEmployeeInterface {
     override var id: Int? = null
         set(value) {
