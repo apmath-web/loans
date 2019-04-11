@@ -11,10 +11,8 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 
 suspend fun ApplicationCall.v1Create() {
-    println("Create")
     val loan = receive<Loan>()
     loan.clientId = getUserId(request)
-    println(loan)
 
     val validator = LoanBuilder()
         .prepend("clientId", RequiredValidator())
