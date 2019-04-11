@@ -9,7 +9,7 @@ interface LoanEmployeeInterface : LoanClientInterface {
     //also LoanClientInterface here
     var id: Int?
 
-    val interest: Money
+    val interest: Int
     val rounding: Int
     val regularPaymentAmount: Money
     val remainBody: Money

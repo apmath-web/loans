@@ -14,7 +14,7 @@ class LoanEmployee(
 
     override val amount: Money,
     override val term: Int,
-    override val interest: Money,
+    override val interest: Int,
     override val currency: Currency,
     override val date: String,
 
