@@ -1,10 +1,10 @@
 package com.apmath.loans.infrastructure.calculation.response
 
-import com.apmath.loans.domain.models.calculation.response.PaymentInterface
+import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Type
 
-class Payment(
+class PaymentFromCalculation(
     override val date: String,
     override val amount: Money,
     override val percent: Int,
@@ -12,4 +12,4 @@ class Payment(
     override val type: Type,
     override val remainCreditBody: Money,
     override val fullEarlyRepayment: Money
-) : PaymentInterface
+) : PaymentFromCalculationInterface

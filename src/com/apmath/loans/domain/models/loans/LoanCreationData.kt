@@ -1,9 +1,9 @@
-package com.apmath.loans.domain.models
+package com.apmath.loans.domain.models.loans
 
 import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
 
-class LoanClient(
+class LoanCreationData(
     override val clientId: Int,
     override val applicationId: Int,
 
@@ -11,4 +11,4 @@ class LoanClient(
     override val term: Int,
     override val currency: Currency,
     override val date: String
-) : LoanClientInterface
+) : LoanCreationDataInterface

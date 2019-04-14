@@ -4,17 +4,17 @@ import com.apmath.loans.domain.exceptions.*
 import com.apmath.loans.domain.exceptions.runtime.RemoveAbsentLoanException
 import com.apmath.loans.domain.exceptions.runtime.RemoveUnidentifiedLoanException
 import com.apmath.loans.domain.exceptions.runtime.StoreIdentifiedLoanException
-import com.apmath.loans.domain.models.LoanEmployeeInterface
+import com.apmath.loans.domain.models.loans.LoanInterface
 
 class Repository : RepositoryInterface {
     private var identity: Int = 1
-    private val loans: HashMap<Int, LoanEmployeeInterface> = hashMapOf()
+    private val loans: HashMap<Int, LoanInterface> = hashMapOf()
 
-    override fun get(id: Int): LoanEmployeeInterface {
+    override fun get(id: Int): LoanInterface {
         return loans[id] ?: throw LoanNotFoundException()
     }
 
-    override fun store(loan: LoanEmployeeInterface) {
+    override fun store(loan: LoanInterface) {
         if (loan.id != null) {
             throw StoreIdentifiedLoanException()
         }
@@ -22,7 +22,7 @@ class Repository : RepositoryInterface {
         loans[identity++] = loan
     }
 
-    override fun remove(loan: LoanEmployeeInterface) {
+    override fun remove(loan: LoanInterface) {
         when {
             loan.id == null                         -> throw RemoveUnidentifiedLoanException()
             !loan.completed                         -> throw RemoveUnfinishedLoanException()

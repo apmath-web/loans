@@ -1,10 +1,10 @@
-package com.apmath.loans.domain.models
+package com.apmath.loans.domain.models.loans
 
 import com.apmath.loans.domain.models.data.Currency
-import com.apmath.loans.domain.models.calculation.response.PaymentInterface as ResponsePaymentInterface
+import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
 import com.apmath.loans.domain.models.data.Money
 
-interface LoanClientInterface {
+interface LoanCreationDataInterface {
     val clientId: Int
     val applicationId: Int
 

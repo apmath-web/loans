@@ -1,12 +1,12 @@
-package com.apmath.loans.domain.models
+package com.apmath.loans.domain.models.loans
 
-import com.apmath.loans.domain.models.PaymentInterface as RequestPaymentInterface
-import com.apmath.loans.domain.models.calculation.response.PaymentInterface as ResponsePaymentInterface
+import com.apmath.loans.domain.models.payments.PaymentInterface as RequestPaymentInterface
+import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Type
 
-interface LoanEmployeeInterface : LoanClientInterface {
-    //also LoanClientInterface here
+interface LoanInterface : LoanCreationDataInterface {
+    //also LoanCreationDataInterface here
     var id: Int?
 
     val interest: Int

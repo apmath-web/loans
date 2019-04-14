@@ -1,14 +1,13 @@
-package com.apmath.loans.domain.models
+package com.apmath.loans.domain.models.loans
 
-import com.apmath.loans.domain.models.LoanEmployeeInterface
 import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.exceptions.runtime.ChangeIdentifiedCreditIdException
-import com.apmath.loans.domain.models.PaymentInterface as RequestPaymentInterface
-import com.apmath.loans.domain.models.calculation.response.PaymentInterface as ResponsePaymentInterface
+import com.apmath.loans.domain.models.payments.PaymentInterface as RequestPaymentInterface
+import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Type
 
-class LoanEmployee(
+class Loan(
     override val clientId: Int,
     override val applicationId: Int,
 
@@ -22,7 +21,7 @@ class LoanEmployee(
     override val regularPaymentAmount: Money,
     override val remainBody: Money,
     override val remainingTerm: Int
-) : LoanEmployeeInterface {
+) : LoanInterface {
     override var id: Int? = null
         set(value) {
             if (field == null) {
