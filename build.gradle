@@ -31,6 +31,8 @@ repositories {
 }
 
 dependencies {
+    compile "org.koin:koin-ktor:$koin_version"
+    compile "org.koin:koin-logger-slf4j:$koin_version"
     compile "com.github.apmath-web:validation:master-SNAPSHOT"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "ch.qos.logback:logback-classic:$logback_version"
@@ -46,6 +48,7 @@ dependencies {
     compile "io.ktor:ktor-client-json-jvm:$ktor_version"
     compile "io.ktor:ktor-client-gson:$ktor_version"
     compile "io.ktor:ktor-client-logging-jvm:$ktor_version"
+    testCompile "org.koin:koin-test:$koin_version"
     testCompile "io.ktor:ktor-server-tests:$ktor_version"
     testCompile "io.ktor:ktor-client-mock:$ktor_version"
     testCompile "io.ktor:ktor-client-mock-jvm:$ktor_version"
