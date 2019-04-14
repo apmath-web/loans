@@ -1,4 +1,4 @@
-package domain.exceptions.runtime
+package com.apmath.loans.domain.exceptions.runtime
 
 import java.lang.RuntimeException
 

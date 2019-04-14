@@ -1,8 +1,8 @@
-package domain.models
+package com.apmath.loans.domain.models
 
 import com.apmath.loans.domain.models.LoanEmployeeInterface
 import com.apmath.loans.domain.models.data.Currency
-import domain.exceptions.runtime.ChangeIdentifiedCreditIdException
+import com.apmath.loans.domain.exceptions.runtime.ChangeIdentifiedCreditIdException
 import com.apmath.loans.domain.models.PaymentInterface as RequestPaymentInterface
 import com.apmath.loans.domain.models.calculation.response.PaymentInterface as ResponsePaymentInterface
 import com.apmath.loans.domain.models.data.Money
