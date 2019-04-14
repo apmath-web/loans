@@ -4,7 +4,7 @@ import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculatio
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Type
 
-class PaymentFromCalculation(
+data class PaymentFromCalculation(
     override val date: String,
     override val amount: Money,
     override val percent: Int,

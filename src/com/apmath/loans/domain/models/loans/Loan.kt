@@ -1,13 +1,12 @@
 package com.apmath.loans.domain.models.loans
 
-import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.exceptions.runtime.ChangeIdentifiedCreditIdException
-import com.apmath.loans.domain.models.payments.PaymentInterface as RequestPaymentInterface
-import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
+import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
-import com.apmath.loans.domain.models.data.Type
+import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
+import com.apmath.loans.domain.models.payments.PaymentInterface as RequestPaymentInterface
 
-class Loan(
+data class Loan(
     override val clientId: Int,
     override val applicationId: Int,
 
@@ -35,13 +34,4 @@ class Loan(
         private set
 
     private val payments: MutableList<ResponsePaymentInterface> = arrayListOf()
-
-    override fun getPayments(type: Type?): List<ResponsePaymentInterface> {
-        TODO("not implemented")
-    }
-
-    override fun writeOf(paymentRequest: RequestPaymentInterface) {
-        TODO("not implemented")
-    }
-
 }

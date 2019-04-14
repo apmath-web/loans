@@ -3,7 +3,7 @@ package com.apmath.loans.domain.models.loans
 import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
 
-class LoanCreationData(
+data class LoanCreationData(
     override val clientId: Int,
     override val applicationId: Int,
 

@@ -5,7 +5,7 @@ import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Status
 
-class Application(
+data class Application(
     override val amount: Money,
     override val currency: Currency,
     override val period: Int,
