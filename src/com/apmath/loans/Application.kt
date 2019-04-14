@@ -1,11 +1,14 @@
 package com.apmath.loans
 
 import com.apmath.loans.application.v1.v1
-import io.ktor.application.*
-import io.ktor.routing.*
-import io.ktor.locations.*
-import io.ktor.features.*
-import io.ktor.gson.*
+import io.ktor.application.Application
+import io.ktor.application.install
+import io.ktor.features.ContentNegotiation
+import io.ktor.features.DefaultHeaders
+import io.ktor.gson.gson
+import io.ktor.locations.KtorExperimentalLocationsAPI
+import io.ktor.locations.Locations
+import io.ktor.routing.Routing
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -22,8 +25,6 @@ fun Application.module(testing: Boolean = false) {
 
     install(ContentNegotiation) {
         gson {
-            setDateFormat("yyyy-mm-dd")
-            setPrettyPrinting()
         }
     }
 
