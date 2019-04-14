@@ -2,6 +2,7 @@ package com.apmath.loans.com.apmath.loans.infrastructure
 
 import io.ktor.application.Application
 import org.koin.dsl.module
+import org.koin.experimental.builder.single
 import org.koin.experimental.builder.singleBy
 import org.koin.ktor.ext.inject
 
@@ -48,6 +49,7 @@ class ServiceManager(app: Application) {
          */
         val serviceManagerModule = module {
             singleBy<HelloServiceInterface, HelloService>()
+            single<HelloRepository>()
         }
     }
 }
@@ -58,6 +60,10 @@ interface HelloServiceInterface {
     fun sayHello(): String
 }
 
-class HelloService : HelloServiceInterface {
-    override fun sayHello() = "Hello Ktor & Koin!"
+class HelloService(private val helloRepository: HelloRepository) : HelloServiceInterface {
+    override fun sayHello() = "Hello ${helloRepository.getHello()}"
+}
+
+class HelloRepository {
+    fun getHello(): String = "Ktor & Koin"
 }
