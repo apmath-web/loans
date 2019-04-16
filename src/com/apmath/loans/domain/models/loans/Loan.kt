@@ -3,10 +3,11 @@ package com.apmath.loans.domain.models.loans
 import com.apmath.loans.domain.exceptions.runtime.ChangeIdentifiedCreditIdException
 import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
+import com.apmath.loans.domain.models.data.Type
 import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
 import com.apmath.loans.domain.models.payments.PaymentInterface as RequestPaymentInterface
 
-data class Loan(
+class Loan(
     override val clientId: Int,
     override val applicationId: Int,
 
@@ -18,7 +19,6 @@ data class Loan(
 
     override val rounding: Int,
     override val regularPaymentAmount: Money,
-    override val remainBody: Money,
     override val remainingTerm: Int
 ) : LoanInterface {
     override var id: Int? = null
@@ -34,4 +34,12 @@ data class Loan(
         private set
 
     private val payments: MutableList<ResponsePaymentInterface> = arrayListOf()
+
+    override fun getPayments(type: Type?): List<com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface> {
+        TODO("not implemented")
+    }
+
+    override fun writeOf(paymentRequest: com.apmath.loans.domain.models.payments.PaymentInterface) {
+        TODO("not implemented")
+    }
 }
