@@ -3,7 +3,6 @@ package com.apmath.loans.domain.models.loans
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Type
 import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
-import com.apmath.loans.domain.models.payments.PaymentInterface as RequestPaymentInterface
 
 interface LoanInterface : LoanCreationDataInterface {
     //also LoanCreationDataInterface here
@@ -16,5 +15,5 @@ interface LoanInterface : LoanCreationDataInterface {
     val completed: Boolean
 
     fun getPayments(type: Type?): List<ResponsePaymentInterface>
-    fun writeOf(paymentRequest: RequestPaymentInterface)
+    fun writeOf(payment: ResponsePaymentInterface)
 }
