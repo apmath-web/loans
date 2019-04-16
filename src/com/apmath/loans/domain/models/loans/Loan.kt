@@ -5,7 +5,6 @@ import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Type
 import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
-import com.apmath.loans.domain.models.payments.PaymentInterface as RequestPaymentInterface
 
 class Loan(
     override val clientId: Int,
@@ -35,11 +34,18 @@ class Loan(
 
     private val payments: MutableList<ResponsePaymentInterface> = arrayListOf()
 
-    override fun getPayments(type: Type?): List<com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface> {
-        TODO("not implemented")
+    override fun getPayments(type: Type?): List<ResponsePaymentInterface> {
+        val results = arrayListOf<ResponsePaymentInterface>()
+
+        return if (type == null)
+            payments
+        else {
+            results.addAll(payments.filter { it.type == type })
+            results
+        }
     }
 
-    override fun writeOf(paymentRequest: com.apmath.loans.domain.models.payments.PaymentInterface) {
-        TODO("not implemented")
+    override fun writeOf(payment: ResponsePaymentInterface) {
+        payments.add(payment)
     }
 }
