@@ -1,8 +1,7 @@
 package com.apmath.loans
 
 import com.apmath.loans.application.v1.v1
-import com.apmath.loans.com.apmath.loans.infrastructure.ServiceManager
-import com.apmath.loans.com.apmath.loans.infrastructure.ServiceManager.Companion.serviceManagerModule
+import com.apmath.loans.com.apmath.loans.infrastructure.loans
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation
@@ -29,8 +28,7 @@ fun Application.module(testing: Boolean = false) {
 
     install(Koin) {
         slf4jLogger()
-        modules(serviceManagerModule)
-        ServiceManager.init(this@module)
+        modules(loans)
     }
 
     install(ContentNegotiation) {
