@@ -9,4 +9,8 @@ interface ApplicationInterface {
     val currency: Currency
     val period: Int
     val status: Status
+
+    //TODO: Not implemented in specification yet, but must be
+    val interest: Int
+    val maxAmount: Money
 }
