@@ -13,7 +13,6 @@ class Loan {
     var date: String? = null
 }
 
-//TODO: replace loanClient from dump
 fun Loan.toLoanClient() = LoanDomain(
     clientId = clientId!!,
     applicationId = applicationId!!,
