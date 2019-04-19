@@ -1,4 +1,4 @@
-package com.apmath.loans.domain.models.application.response
+package com.apmath.loans.domain.models
 
 import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money

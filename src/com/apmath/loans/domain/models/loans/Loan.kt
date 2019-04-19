@@ -4,7 +4,7 @@ import com.apmath.loans.domain.exceptions.runtime.ChangeIdentifiedCreditIdExcept
 import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Type
-import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
+import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface as ResponsePaymentInterface
 
 class Loan(
     override val clientId: Int,

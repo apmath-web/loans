@@ -1,6 +1,6 @@
-package com.apmath.loans.infrastructure.calculation.request
+package com.apmath.loans.infrastructure.models.payments
 
-import com.apmath.loans.domain.models.calculation.request.PaymentLastInterface
+import com.apmath.loans.domain.models.payments.PaymentLastInterface
 import com.apmath.loans.domain.models.data.Money
 
 data class PaymentLast(

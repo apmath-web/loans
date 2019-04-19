@@ -1,4 +1,4 @@
-package com.apmath.loans.domain.models.calculation.request
+package com.apmath.loans.domain.models.payments
 
 import com.apmath.loans.domain.models.data.Money
 

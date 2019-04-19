@@ -1,6 +1,6 @@
 package com.apmath.loans.infrastructure.aplications.response
 
-import com.apmath.loans.domain.models.application.response.ApplicationInterface
+import com.apmath.loans.domain.models.ApplicationInterface
 import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
 import com.apmath.loans.domain.models.data.Status

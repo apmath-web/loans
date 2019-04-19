@@ -1,6 +1,6 @@
 package com.apmath.loans.application.v1.models
 
-import com.apmath.loans.domain.models.LoanClient as LoanDomain
+import com.apmath.loans.domain.models.loans.LoanCreationData as LoanDomain
 import com.apmath.loans.domain.models.data.Currency
 import com.apmath.loans.domain.models.data.Money
 
