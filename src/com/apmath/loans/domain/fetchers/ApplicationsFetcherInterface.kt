@@ -1,8 +1,7 @@
 package com.apmath.loans.domain.fetchers
 
-import com.apmath.loans.domain.models.ApplicationInterface
+import com.apmath.loans.infrastructure.aplications.response.Application
 
 interface ApplicationsFetcherInterface {
-    suspend fun isApproved(applicationId: Int): Boolean
-    suspend fun getApplication(applicationId: Int): ApplicationInterface
+    suspend fun getApplication(applicationId: Int): Application
 }
