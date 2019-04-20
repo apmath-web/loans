@@ -1,5 +1,8 @@
 package com.apmath.loans.domain.services
 
+import com.apmath.loans.domain.exceptions.AmountMoreThanMaxException
+import com.apmath.loans.domain.exceptions.NoClientException
+import com.apmath.loans.domain.exceptions.NotApprovedException
 import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
@@ -20,11 +23,14 @@ class LoanService(
 ) : LoanServiceInterface {
     override fun add(loan: LoanCreationDataInterface): Int {
         return runBlocking {
+            val clientId = loan.clientId
+            val applicationId = loan.applicationId
+
             val applicationResult = async {
-                applicationsFetcher.getApplication(loan.applicationId)
+                applicationsFetcher.getApplication(applicationId)
             }
             val clientResult = async {
-                clientsFetcher.isExists(loan.clientId)
+                clientsFetcher.isExists(clientId)
             }
             val calculationResult = async(start = CoroutineStart.LAZY) {
                 val loanInit = loan.toLoanInitialization(applicationResult.await())
@@ -32,9 +38,12 @@ class LoanService(
             }
 
             when {
-                !clientResult.await()                               -> throw Exception()
-                applicationResult.await().status != Status.APPROVED -> throw Exception("1")
-                applicationResult.await().maxAmount < loan.amount   -> throw Exception("2")
+                !clientResult.await()
+                                -> throw NoClientException(clientId)
+                applicationResult.await().status != Status.APPROVED
+                                -> throw NotApprovedException(applicationResult.await().status)
+                applicationResult.await().maxAmount < loan.amount
+                                -> throw AmountMoreThanMaxException(loan.amount, applicationResult.await().maxAmount)
                 else -> {
                     val loanDetails = calculationResult.await()
                     val interest = applicationResult.await().interest
