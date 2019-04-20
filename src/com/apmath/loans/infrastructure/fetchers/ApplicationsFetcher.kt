@@ -1,7 +1,7 @@
 package com.apmath.loans.infrastructure.fetchers
 
 import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
-import com.apmath.loans.infrastructure.aplications.response.Application
+import com.apmath.loans.infrastructure.models.Application
 
 class ApplicationsFetcher : AbstractFetcher(
     Host.APPLICATIONS,

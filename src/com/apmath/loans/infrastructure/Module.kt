@@ -1,4 +1,4 @@
-package com.apmath.loans.com.apmath.loans.infrastructure
+package com.apmath.loans.infrastructure
 
 import com.apmath.loans.domain.fetchers.*
 import com.apmath.loans.domain.repositories.*

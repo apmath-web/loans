@@ -1,4 +1,4 @@
-package com.apmath.loans.infrastructure.aplications.response
+package com.apmath.loans.infrastructure.models
 
 import com.apmath.loans.domain.models.ApplicationInterface
 import com.apmath.loans.domain.models.data.Currency

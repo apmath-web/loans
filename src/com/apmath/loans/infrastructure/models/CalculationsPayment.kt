@@ -1,4 +1,4 @@
-package com.apmath.loans.infrastructure.calculation.request
+package com.apmath.loans.infrastructure.models
 
 import com.apmath.loans.domain.models.CalculationsPaymentInterface
 import com.apmath.loans.domain.models.loans.LoanForCalculationsInterface
