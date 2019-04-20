@@ -1,9 +1,15 @@
 package com.apmath.loans.infrastructure.fetchers
 
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
+import io.ktor.client.response.HttpResponse
+import io.ktor.http.isSuccess
 
-class ClientsFetcher : ClientsFetcherInterface {
+class ClientsFetcher : AbstractFetcher(
+    Host.CLIENTS,
+    true
+), ClientsFetcherInterface {
     override suspend fun isExists(clientId: Int): Boolean {
-        TODO("not implemented")
+        return get<HttpResponse>("/v1/$clientId")
+            .status.isSuccess()
     }
 }

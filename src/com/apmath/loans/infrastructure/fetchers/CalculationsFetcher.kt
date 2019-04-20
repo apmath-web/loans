@@ -1,11 +1,14 @@
 package com.apmath.loans.infrastructure.fetchers
 
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
-import com.apmath.loans.domain.models.loans.LoanDetailsInterface
 import com.apmath.loans.domain.models.loans.LoanInitializationInterface
+import com.apmath.loans.infrastructure.models.loans.LoanDetails
 
-class CalculationsFetcher : CalculationsFetcherInterface{
-    override suspend fun initialization(loan: LoanInitializationInterface): LoanDetailsInterface {
-        TODO("not implemented")
+class CalculationsFetcher : AbstractFetcher(
+    Host.CALCULATIONS,
+    true
+), CalculationsFetcherInterface {
+    override suspend fun initialization(loan: LoanInitializationInterface): LoanDetails {
+        return post("/v1/loan", loan)
     }
 }
