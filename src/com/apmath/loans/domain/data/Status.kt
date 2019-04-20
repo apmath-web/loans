@@ -1,5 +1,12 @@
 package com.apmath.loans.domain.models.data
 
+import com.google.gson.annotations.SerializedName
+
 enum class Status {
-    APPROVED, REJECTED, PENDING
+    @SerializedName("approved")
+    APPROVED,
+    @SerializedName("rejected")
+    REJECTED,
+    @SerializedName("pending")
+    PENDING
 }
