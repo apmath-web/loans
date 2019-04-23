@@ -10,7 +10,8 @@ interface ApplicationInterface {
     val period: Int
     val status: Status
 
-    //TODO: Not implemented in specification yet, but must be
+    val clientId: Int
     val interest: Int
     val maxAmount: Money
+    val minAmount: Money
 }
