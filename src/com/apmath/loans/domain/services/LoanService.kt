@@ -1,8 +1,9 @@
 package com.apmath.loans.domain.services
 
-import com.apmath.loans.domain.exceptions.AmountMoreThanMaxException
+import com.apmath.loans.domain.exceptions.WrongAmountException
 import com.apmath.loans.domain.exceptions.NoClientException
 import com.apmath.loans.domain.exceptions.NotApprovedException
+import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
@@ -37,16 +38,26 @@ class LoanService(
                 calculationsFetcher.initialization(loanInit)
             }
 
+            val application = applicationResult.await()
+            val loanDetails = calculationResult.await()
+            val client = clientResult.await()
+
             when {
-                !clientResult.await()
-                                -> throw NoClientException(clientId)
-                applicationResult.await().status != Status.APPROVED
-                                -> throw NotApprovedException(applicationResult.await().status)
-                applicationResult.await().maxAmount < loan.amount
-                                -> throw AmountMoreThanMaxException(loan.amount, applicationResult.await().maxAmount)
+                //client does not exists
+                !client
+                        -> throw NoClientException()
+                //application status is not approved
+                application.status != Status.APPROVED
+                        -> throw NotApprovedException(application.status)
+                //application's client is not our client
+                application.clientId != clientId
+                        -> throw WrongClientId()
+                //amount must be in bounds
+                loan.amount > application.maxAmount || loan.amount < application.minAmount
+                        -> throw WrongAmountException(application.minAmount, application.maxAmount)
+
                 else -> {
-                    val loanDetails = calculationResult.await()
-                    val interest = applicationResult.await().interest
+                    val interest = application.interest
 
                     val loanEmployee = loan.toLoan(interest, loanDetails)
 
