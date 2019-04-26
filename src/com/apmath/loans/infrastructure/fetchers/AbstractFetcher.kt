@@ -13,14 +13,8 @@ import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 
 open class AbstractFetcher(
-    var host: Host,
-    testing: Boolean = false
+    var host: Host
 ) {
-    init {
-        if (testing)
-            host = Host.TESTING_PLACE_HOLDER
-    }
-
     suspend inline fun <reified T> get(path: String): T {
         return AbstractFetcher.client.request {
             method = HttpMethod.Get
