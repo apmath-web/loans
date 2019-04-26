@@ -4,3 +4,8 @@ jdk:
   - openjdk8
 script:
 - ./gradlew test
+- docker build -t loans .
+- docker run -d -p 8080:8080 --name loans_container loans
+- docker stop loans_container
+- docker rm loans_container
+- docker rmi loans
