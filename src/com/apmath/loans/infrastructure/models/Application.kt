@@ -1,9 +1,9 @@
 package com.apmath.loans.infrastructure.models
 
 import com.apmath.loans.domain.models.ApplicationInterface
-import com.apmath.loans.domain.models.data.Currency
-import com.apmath.loans.domain.models.data.Money
-import com.apmath.loans.domain.models.data.Status
+import com.apmath.loans.domain.data.Currency
+import com.apmath.loans.domain.data.Money
+import com.apmath.loans.domain.data.Status
 
 data class Application(
     override val amount: Money,

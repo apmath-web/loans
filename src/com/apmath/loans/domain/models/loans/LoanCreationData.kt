@@ -1,8 +1,8 @@
 package com.apmath.loans.domain.models.loans
 
 import com.apmath.loans.domain.models.ApplicationInterface
-import com.apmath.loans.domain.models.data.Currency
-import com.apmath.loans.domain.models.data.Money
+import com.apmath.loans.domain.data.Currency
+import com.apmath.loans.domain.data.Money
 import com.apmath.loans.infrastructure.models.loans.LoanInitialization
 
 data class LoanCreationData(

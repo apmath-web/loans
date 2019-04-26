@@ -1,6 +1,6 @@
 package com.apmath.loans.domain.exceptions
 
-import com.apmath.loans.domain.models.data.Money
+import com.apmath.loans.domain.data.Money
 import io.ktor.http.HttpStatusCode
 
 class WrongAmountException(min: Money, max: Money) :

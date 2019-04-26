@@ -1,6 +1,6 @@
 package com.apmath.loans.domain.exceptions
 
-import com.apmath.loans.domain.models.data.Status
+import com.apmath.loans.domain.data.Status
 import io.ktor.http.HttpStatusCode
 
 class NotApprovedException(status: Status) :

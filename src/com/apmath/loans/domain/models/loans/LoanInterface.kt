@@ -1,7 +1,7 @@
 package com.apmath.loans.domain.models.loans
 
-import com.apmath.loans.domain.models.data.Money
-import com.apmath.loans.domain.models.data.Type
+import com.apmath.loans.domain.data.Money
+import com.apmath.loans.domain.data.Type
 import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface as ResponsePaymentInterface
 
 interface LoanInterface : LoanCreationDataInterface {

@@ -1,3 +1,3 @@
-package com.apmath.loans.domain.models.data
+package com.apmath.loans.domain.data
 
 typealias Currency = String
