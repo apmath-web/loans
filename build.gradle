@@ -53,3 +53,12 @@ dependencies {
     testCompile "io.ktor:ktor-client-mock:$ktor_version"
     testCompile "io.ktor:ktor-client-mock-jvm:$ktor_version"
 }
+
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'io.ktor.server.netty.EngineMain'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
