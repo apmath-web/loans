@@ -9,6 +9,7 @@ enum class Host(val value: String) {
     CALCULATIONS(host("calculations")),
 }
 
+@Suppress("EXPERIMENTAL_API_USAGE")
 private fun host(name: String): String {
     val config = HoconApplicationConfig(ConfigFactory.load())
 
