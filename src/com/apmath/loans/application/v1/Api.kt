@@ -12,6 +12,7 @@ import io.ktor.routing.Routing
 import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.route
+import io.ktor.util.error
 import org.koin.ktor.ext.inject
 
 internal fun Routing.v1() {
@@ -34,6 +35,7 @@ private fun Routing.v1Info() {
 }
 
 suspend fun ApplicationCall.respondError(e: Exception) {
+    application.environment.log.error(e)
     if (e is ApiException)
         respond(e.code, e.message)
     else

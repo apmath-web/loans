@@ -13,7 +13,7 @@ import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 
 open class AbstractFetcher(
-    var host: Host
+    val host: Host
 ) {
     suspend inline fun <reified T> get(path: String): T {
         return AbstractFetcher.client.request {
