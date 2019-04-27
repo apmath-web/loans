@@ -12,9 +12,7 @@ import com.apmath.loans.domain.models.loans.LoanCreationDataInterface
 import com.apmath.loans.domain.models.loans.toLoan
 import com.apmath.loans.domain.models.loans.toLoanInitialization
 import com.apmath.loans.domain.repositories.RepositoryInterface
-import kotlinx.coroutines.CoroutineStart
-import kotlinx.coroutines.async
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 
 class LoanService(
     private val applicationsFetcher: ApplicationsFetcherInterface,
@@ -22,48 +20,46 @@ class LoanService(
     private val clientsFetcher: ClientsFetcherInterface,
     private val repository: RepositoryInterface
 ) : LoanServiceInterface {
-    override fun add(loan: LoanCreationDataInterface): Int {
-        return runBlocking {
-            val clientId = loan.clientId
-            val applicationId = loan.applicationId
+    override suspend fun add(loan: LoanCreationDataInterface): Int {
+        val clientId = loan.clientId
+        val applicationId = loan.applicationId
 
-            val applicationResult = async {
-                applicationsFetcher.getApplication(applicationId)
-            }
-            val clientResult = async {
-                clientsFetcher.isExists(clientId)
-            }
-            val calculationResult = async(start = CoroutineStart.LAZY) {
-                val loanInit = loan.toLoanInitialization(applicationResult.await())
-                calculationsFetcher.initialization(loanInit)
-            }
+        val applicationResult = GlobalScope.async {
+            applicationsFetcher.getApplication(applicationId)
+        }
+        val clientResult = GlobalScope.async {
+            clientsFetcher.isExists(clientId)
+        }
+        val calculationResult = GlobalScope.async(start = CoroutineStart.LAZY) {
+            val loanInit = loan.toLoanInitialization(applicationResult.await())
+            calculationsFetcher.initialization(loanInit)
+        }
 
-            val application = applicationResult.await()
-            val loanDetails = calculationResult.await()
-            val client = clientResult.await()
+        val application = applicationResult.await()
+        val loanDetails = calculationResult.await()
+        val client = clientResult.await()
 
-            when {
-                //client does not exists
-                !client
-                        -> throw NoClientException()
-                //application status is not approved
-                application.status != Status.APPROVED
-                        -> throw NotApprovedException(application.status)
-                //application's client is not our client
-                application.clientId != clientId
-                        -> throw WrongClientId()
-                //amount must be in bounds
-                loan.amount > application.maxAmount || loan.amount < application.minAmount
-                        -> throw WrongAmountException(application.minAmount, application.maxAmount)
+        when {
+            //client does not exists
+            !client
+            -> throw NoClientException()
+            //application status is not approved
+            application.status != Status.APPROVED
+            -> throw NotApprovedException(application.status)
+            //application's client is not our client
+            application.clientId != clientId
+            -> throw WrongClientId()
+            //amount must be in bounds
+            loan.amount > application.maxAmount || loan.amount < application.minAmount
+            -> throw WrongAmountException(application.minAmount, application.maxAmount)
 
-                else -> {
-                    val interest = application.interest
+            else -> {
+                val interest = application.interest
 
-                    val loanEmployee = loan.toLoan(interest, loanDetails)
+                val loanEmployee = loan.toLoan(interest, loanDetails)
 
-                    repository.store(loanEmployee)
-                    return@runBlocking loanEmployee.id!!
-                }
+                repository.store(loanEmployee)
+                return loanEmployee.id!!
             }
         }
     }
