@@ -9,11 +9,12 @@ enum class Host(val value: String) {
     CALCULATIONS(host("calculations")),
 }
 
+@Suppress("EXPERIMENTAL_API_USAGE")
 private fun host(name: String): String {
     val config = HoconApplicationConfig(ConfigFactory.load())
 
     return if (config.property("$name.testing").getString() == "true")
-        config.property("$name.domain").getString()
-    else
         config.property("mock.domain").getString()
+    else
+        config.property("$name.domain").getString()
 }
