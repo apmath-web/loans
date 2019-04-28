@@ -12,6 +12,7 @@ import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 
+//TODO: temporary implementation
 open class AbstractFetcher(
     val host: Host
 ) {

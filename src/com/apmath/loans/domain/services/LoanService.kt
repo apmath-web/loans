@@ -20,6 +20,7 @@ class LoanService(
     private val clientsFetcher: ClientsFetcherInterface,
     private val repository: RepositoryInterface
 ) : LoanServiceInterface {
+    //TODO: may need to replace GlobalScope.async
     override suspend fun add(loan: LoanCreationDataInterface): Int {
         val clientId = loan.clientId
         val applicationId = loan.applicationId
