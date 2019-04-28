@@ -1,8 +1,8 @@
-package com.apmath.loans.infrastructure.calculation.response
+package com.apmath.loans.infrastructure.models.payments
 
-import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface
-import com.apmath.loans.domain.models.data.Money
-import com.apmath.loans.domain.models.data.Type
+import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
+import com.apmath.loans.domain.data.Money
+import com.apmath.loans.domain.data.Type
 
 data class PaymentFromCalculation(
     override val date: String,

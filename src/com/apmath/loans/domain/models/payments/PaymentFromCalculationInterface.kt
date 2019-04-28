@@ -1,7 +1,7 @@
-package com.apmath.loans.domain.models.calculation.response
+package com.apmath.loans.domain.models.payments
 
-import com.apmath.loans.domain.models.data.Money
-import com.apmath.loans.domain.models.data.Type
+import com.apmath.loans.domain.data.Money
+import com.apmath.loans.domain.data.Type
 
 interface PaymentFromCalculationInterface {
     val date: String

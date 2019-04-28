@@ -1,9 +1,9 @@
-package com.apmath.loans.infrastructure.calculation.request
+package com.apmath.loans.infrastructure.models
 
-import com.apmath.loans.domain.models.calculation.request.CalculationsPaymentInterface
-import com.apmath.loans.domain.models.calculation.request.LoanForCalculationsInterface
-import com.apmath.loans.domain.models.calculation.request.PaymentDateInterface
-import com.apmath.loans.domain.models.calculation.request.PaymentLastInterface
+import com.apmath.loans.domain.models.CalculationsPaymentInterface
+import com.apmath.loans.domain.models.loans.LoanForCalculationsInterface
+import com.apmath.loans.domain.models.payments.PaymentDateInterface
+import com.apmath.loans.domain.models.payments.PaymentLastInterface
 
 data class CalculationsPayment(
     override val loanForCalculations: LoanForCalculationsInterface,

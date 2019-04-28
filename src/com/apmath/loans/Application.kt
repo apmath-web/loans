@@ -1,7 +1,7 @@
 package com.apmath.loans
 
 import com.apmath.loans.application.v1.v1
-import com.apmath.loans.com.apmath.loans.infrastructure.loans
+import com.apmath.loans.infrastructure.loans
 import io.ktor.application.Application
 import io.ktor.application.install
 import io.ktor.features.ContentNegotiation

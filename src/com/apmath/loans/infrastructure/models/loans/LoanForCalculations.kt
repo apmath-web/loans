@@ -1,7 +1,7 @@
-package com.apmath.loans.infrastructure.calculation.request
+package com.apmath.loans.infrastructure.models.loans
 
-import com.apmath.loans.domain.models.calculation.request.LoanForCalculationsInterface
-import com.apmath.loans.domain.models.data.Money
+import com.apmath.loans.domain.models.loans.LoanForCalculationsInterface
+import com.apmath.loans.domain.data.Money
 
 data class LoanForCalculations(
     override val interest: Int,

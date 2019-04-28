@@ -1,8 +1,8 @@
 package com.apmath.loans.domain.models.loans
 
-import com.apmath.loans.domain.models.data.Currency
-import com.apmath.loans.domain.models.data.Money
-import com.apmath.loans.domain.models.calculation.response.PaymentFromCalculationInterface as ResponsePaymentInterface
+import com.apmath.loans.domain.data.Currency
+import com.apmath.loans.domain.data.Money
+import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface as ResponsePaymentInterface
 
 interface LoanCreationDataInterface {
     val clientId: Int
