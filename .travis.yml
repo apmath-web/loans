@@ -5,7 +5,8 @@ jdk:
 script:
 - ./gradlew test
 - docker build -t loans .
-- docker run -d -p 8080:8080 --name loans_container loans
+- docker run -d -p 8080:8080 --name loans_container loans && sleep 10
+- curl http://127.0.0.1:8080/v1/info
 - docker stop loans_container
 - docker rm loans_container
 - docker rmi loans
