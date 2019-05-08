@@ -20,6 +20,7 @@ class Loan(
     override val regularPaymentAmount: Money,
     override val remainingTerm: Int
 ) : LoanInterface {
+    @Transient
     override var id: Int? = null
         set(value) {
             if (field == null) {
@@ -32,6 +33,7 @@ class Loan(
     override var completed: Boolean = false
         private set
 
+    @Transient
     private val payments: MutableList<ResponsePaymentInterface> = arrayListOf()
 
     override fun getPayments(type: Type?): List<ResponsePaymentInterface> {
