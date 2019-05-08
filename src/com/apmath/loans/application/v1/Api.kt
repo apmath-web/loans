@@ -2,6 +2,7 @@ package com.apmath.loans.application.v1
 
 import com.apmath.loans.application.v1.actions.v1Create
 import com.apmath.loans.application.v1.actions.v1Info
+import com.apmath.loans.application.v1.actions.v1ListLoans
 import com.apmath.loans.domain.exceptions.ApiException
 import com.apmath.loans.domain.services.LoanServiceInterface
 import io.ktor.application.ApplicationCall
@@ -30,6 +31,9 @@ private fun Routing.v1Info() {
         }
         post("loan") {
             call.v1Create(loanService)
+        }
+        get {
+            call.v1ListLoans(loanService)
         }
     }
 }
