@@ -10,6 +10,8 @@ class Repository : RepositoryInterface {
     private var identity: Int = 1
     private val loans: HashMap<Int, LoanInterface> = hashMapOf()
 
+    override fun getAll():List<LoanInterface> = loans.toList().map { it.second }
+
     override fun get(id: Int): LoanInterface {
         return loans[id] ?: throw LoanNotFoundException()
     }
