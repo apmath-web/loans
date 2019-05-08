@@ -1,7 +1,6 @@
 package com.apmath.loans.application.v1.actions
 
 import com.apmath.loans.application.v1.models.Loan
-import com.apmath.loans.application.v1.models.response.LoanIdResponse
 import com.apmath.loans.application.v1.models.toLoanClient
 import com.apmath.loans.application.v1.respondError
 import com.apmath.loans.application.v1.validators.LoanBuilder
@@ -38,5 +37,5 @@ suspend fun ApplicationCall.v1Create(loanService: LoanServiceInterface) {
             return
         }
 
-    respond(LoanIdResponse(loanId))
+    respond(mapOf("loanId" to loanId))
 }

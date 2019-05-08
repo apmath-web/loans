@@ -1,7 +1,6 @@
 package com.apmath.loans.application.v1.actions
 
 import com.apmath.loans.application.v1.models.Mixed
-import com.apmath.loans.application.v1.models.response.ListLoansResponse
 import com.apmath.loans.application.v1.models.toMixedId
 import com.apmath.loans.application.v1.respondError
 import com.apmath.loans.application.v1.validators.MixedBuilder
@@ -37,5 +36,5 @@ suspend fun ApplicationCall.v1ListLoans(loanService: LoanServiceInterface) {
             return
         }
 
-    respond(ListLoansResponse(loans))
+    respond(mapOf("loans" to loans))
 }
