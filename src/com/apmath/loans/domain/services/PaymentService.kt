@@ -21,6 +21,11 @@ class PaymentService(
     private val calculationsFetcher: CalculationsFetcherInterface,
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
+    override suspend fun add(payment: Payment): String {
+        //TODO("not implemented")
+        return "2019-03-09"
+    }
+
     override suspend fun get(mixedLoanId: MixedLoanIdInterface): Array<PaymentFromCalculationInterface> {
         // for manual testing
         val payment = PaymentFromCalculation(
@@ -34,4 +39,5 @@ class PaymentService(
         )
         return arrayOf(payment)
     }
+
 }
