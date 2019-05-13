@@ -11,10 +11,10 @@ private fun fromEnv(key: String): String {
          when (it) {
             null    -> throw NullPointerException("Missing environment value for $key")
             "mock"  -> mock
-            else    -> "$host:$it"
+            else    -> "$it:$port"
         }
     }
 }
 
-private const val host = "localhost"
+private const val port = "8080"
 private const val mock = "demo5033957.mockable.io"
