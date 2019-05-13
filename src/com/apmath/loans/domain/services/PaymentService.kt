@@ -22,10 +22,6 @@ class PaymentService(
     private val clientsFetcher: ClientsFetcherInterface,
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
-    override suspend fun add(payment: PaymentInterface): PaymentInterface{
-
-    }
-
     override suspend fun get(mixedId: MixedIdInterface): Array<PaymentFromCalculationInterface> {
         // for manual testing
         val payment = PaymentFromCalculation(

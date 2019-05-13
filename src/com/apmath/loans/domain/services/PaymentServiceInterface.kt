@@ -5,6 +5,5 @@ import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
 import com.apmath.loans.domain.models.payments.PaymentInterface
 
 interface PaymentServiceInterface {
-    suspend fun add(payment: PaymentInterface) : PaymentInterface
     suspend fun get(mixedId: MixedIdInterface) : Array<PaymentFromCalculationInterface>
 }
