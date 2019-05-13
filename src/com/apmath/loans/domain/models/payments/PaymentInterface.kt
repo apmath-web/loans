@@ -7,4 +7,5 @@ interface PaymentInterface {
     val payment: Money
     val currency: Currency
     val date: String
+    val clientId: Int
 }
