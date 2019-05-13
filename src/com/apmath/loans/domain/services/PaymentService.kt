@@ -18,9 +18,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 
 class PaymentService(
-    private val applicationsFetcher: ApplicationsFetcherInterface,
     private val calculationsFetcher: CalculationsFetcherInterface,
-    private val clientsFetcher: ClientsFetcherInterface,
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
     override suspend fun get(mixedLoanId: MixedLoanIdInterface): Array<PaymentFromCalculationInterface> {
