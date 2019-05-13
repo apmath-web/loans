@@ -13,6 +13,7 @@ import org.koin.experimental.builder.singleBy
 val loans = module {
     //services
     singleBy<LoanServiceInterface, LoanService>()
+    singleBy<PaymentServiceInterface, PaymentService>()
     //fetchers
     singleBy<ApplicationsFetcherInterface, ApplicationsFetcher>()
     singleBy<CalculationsFetcherInterface, CalculationsFetcher>()

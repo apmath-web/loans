@@ -7,6 +7,7 @@ import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
 import com.apmath.loans.domain.models.MixedId
 import com.apmath.loans.domain.models.MixedIdInterface
+import com.apmath.loans.domain.models.MixedLoanIdInterface
 import com.apmath.loans.domain.models.payments.PaymentInterface
 import com.apmath.loans.domain.models.payments.Payment
 import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
@@ -22,7 +23,7 @@ class PaymentService(
     private val clientsFetcher: ClientsFetcherInterface,
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
-    override suspend fun get(mixedId: MixedIdInterface): Array<PaymentFromCalculationInterface> {
+    override suspend fun get(mixedLoanId: MixedLoanIdInterface): Array<PaymentFromCalculationInterface> {
         // for manual testing
         val payment = PaymentFromCalculation(
             "date",

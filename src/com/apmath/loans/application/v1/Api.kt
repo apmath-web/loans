@@ -6,6 +6,7 @@ import com.apmath.loans.application.v1.actions.v1ListLoans
 import com.apmath.loans.application.v1.actions.v1ListPayments
 import com.apmath.loans.domain.exceptions.ApiException
 import com.apmath.loans.domain.services.LoanServiceInterface
+import com.apmath.loans.domain.services.PaymentService
 import com.apmath.loans.domain.services.PaymentServiceInterface
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
@@ -37,7 +38,7 @@ private fun Routing.v1Info() {
             call.v1Create(loanService)
         }
         get("{id}/payments"){
-            call.v1ListPayments()
+            call.v1ListPayments(paymentService)
         }
     }
 }
