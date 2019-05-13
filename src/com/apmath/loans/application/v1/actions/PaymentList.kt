@@ -1,29 +1,26 @@
 package com.apmath.loans.application.v1.actions
 
-import com.apmath.loans.application.v1.models.Mixed
-import com.apmath.loans.application.v1.models.toMixedId
-import com.apmath.loans.application.v1.validators.MixedBuilder
-import com.apmath.loans.domain.data.Type
-import com.apmath.loans.domain.repositories.Repository
-import io.netty.handler.codec.http.*
-import com.apmath.loans.domain.repositories.RepositoryInterface
+import com.apmath.loans.application.v1.models.MixedLoan
+import com.apmath.loans.application.v1.models.toMixedLoanId
+import com.apmath.loans.application.v1.validators.MixedLoanBuilder
 import com.apmath.validation.simple.NullableValidator
+import com.apmath.validation.simple.RequiredValidator
 import com.apmath.loans.domain.models.loans.Loan as LoanModel
 import com.apmath.loans.domain.models.payments.Payment as PaymentModel
 import io.ktor.application.ApplicationCall
 import io.ktor.response.respond
 
 suspend fun ApplicationCall.v1ListPayments(){
-    val mixed = Mixed(
-        getUserId(request),
+    val mixed = MixedLoan(
+        getUserId(request), //для проверки, смотрит ли клиент свой лоан, брать айди лоана и чекать, принадлежит ли он ему
         request.headers["service"],
-        parameters["payment"]
+        parameters["id"]
     )
 
-    val validator = MixedBuilder()
+    val validator = MixedLoanBuilder()
         .prepend("loanIdHeader", NullableValidator())
         .prepend("serviceIdHeader", NullableValidator())
-        .prepend("loanId", NullableValidator())
+        .prepend("loanId", RequiredValidator())
         .build()
 
     if (!validator.validate(mixed)) {
@@ -31,7 +28,6 @@ suspend fun ApplicationCall.v1ListPayments(){
         return
     }
 
-    val mixedId = mixed.toMixedId()
+    val mixedId = mixed.toMixedLoanId()
 
 }
-
