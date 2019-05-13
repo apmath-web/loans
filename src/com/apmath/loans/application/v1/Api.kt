@@ -1,9 +1,6 @@
 package com.apmath.loans.application.v1
 
-import com.apmath.loans.application.v1.actions.v1Create
-import com.apmath.loans.application.v1.actions.v1Info
-import com.apmath.loans.application.v1.actions.v1ListLoans
-import com.apmath.loans.application.v1.actions.v1ListPayments
+import com.apmath.loans.application.v1.actions.*
 import com.apmath.loans.domain.exceptions.ApiException
 import com.apmath.loans.domain.services.LoanServiceInterface
 import com.apmath.loans.domain.services.PaymentService
@@ -39,6 +36,9 @@ private fun Routing.v1Info() {
         }
         get("{id}/payments"){
             call.v1ListPayments(paymentService)
+        }
+        post("{id}/payment"){
+            call.v1Payment(paymentService)
         }
     }
 }
