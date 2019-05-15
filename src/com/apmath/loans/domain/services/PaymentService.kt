@@ -21,7 +21,7 @@ class PaymentService(
     private val calculationsFetcher: CalculationsFetcherInterface,
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
-    override suspend fun add(payment: Payment): String {
+    override suspend fun add(payment: PaymentInterface): String {
         //TODO("not implemented")
         return "2019-03-09"
     }
