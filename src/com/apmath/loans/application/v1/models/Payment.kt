@@ -2,6 +2,8 @@ package com.apmath.loans.application.v1.models
 
 import com.apmath.loans.domain.data.Currency
 import com.apmath.loans.domain.data.Money
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 import com.apmath.loans.domain.models.payments.Payment as PaymentDomain
 
 class Payment {
@@ -11,9 +13,13 @@ class Payment {
     var clientId: Int? = null
 }
 
-fun Payment.toPayment() = PaymentDomain (
+fun Payment.toPaymentDomain() = PaymentDomain(
     payment!!,
     currency!!,
-    date!!,
+    if (date == null) {
+        LocalDate.now()
+    } else {
+        LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
+    },
     clientId!!
 )
