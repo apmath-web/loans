@@ -8,7 +8,6 @@ import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
-import com.apmath.loans.domain.models.MixedIdInterface
 import com.apmath.loans.domain.models.loans.LoanCreationDataInterface
 import com.apmath.loans.domain.models.loans.LoanInterface
 import com.apmath.loans.domain.models.loans.toLoan
@@ -69,7 +68,7 @@ class LoanService(
         }
     }
 
-    override suspend fun get(mixedId: MixedIdInterface): Array<LoanInterface> {
+    override suspend fun get(isService: Boolean, clientIdHeader: Int?, clientId: Int?): Array<LoanInterface> {
         /*
         TODO(Remove)
         For manual testing
