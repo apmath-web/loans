@@ -2,6 +2,7 @@ package com.apmath.loans.application.v1.actions
 
 import com.apmath.loans.application.v1.respondError
 import com.apmath.loans.domain.services.LoanServiceInterface
+import com.apmath.validation.simple.Message
 import io.ktor.application.ApplicationCall
 import io.ktor.response.respond
 
@@ -12,7 +13,7 @@ suspend fun ApplicationCall.v1ListLoans(loanService: LoanServiceInterface) {
     val clientId = try {
         getClientAttributeId(this)
     } catch (e: NumberFormatException) {
-        respond("Client id must be between 1 and ${Int.MAX_VALUE}")
+        respond(Message("Client id must be between 1 and ${Int.MAX_VALUE}"))
         return
     }
 
