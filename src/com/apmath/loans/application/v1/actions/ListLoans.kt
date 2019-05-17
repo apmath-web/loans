@@ -1,5 +1,6 @@
 package com.apmath.loans.application.v1.actions
 
+import com.apmath.loans.application.v1.mappers.LoansMapper
 import com.apmath.loans.application.v1.respondError
 import com.apmath.loans.domain.services.LoanServiceInterface
 import com.apmath.validation.simple.Message
@@ -25,7 +26,9 @@ suspend fun ApplicationCall.v1ListLoans(loanService: LoanServiceInterface) {
             return
         }
 
-    respond(mapOf("loans" to loans))
+    val loansResponse = LoansMapper().map(loans,isService)
+
+    respond(mapOf("loans" to loansResponse))
 }
 
 @Throws
