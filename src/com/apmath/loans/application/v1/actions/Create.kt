@@ -1,9 +1,15 @@
 package com.apmath.loans.application.v1.actions
 
+import com.apmath.loans.application.v1.exceptions.BadRequestException
+import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
+import com.apmath.loans.application.v1.exceptions.NotFoundException
 import com.apmath.loans.application.v1.models.incoming.Loan
 import com.apmath.loans.application.v1.models.incoming.toLoanClient
-import com.apmath.loans.application.v1.respondError
 import com.apmath.loans.application.v1.validators.LoanBuilder
+import com.apmath.loans.domain.exceptions.NoClientException
+import com.apmath.loans.domain.exceptions.NotApprovedException
+import com.apmath.loans.domain.exceptions.WrongAmountException
+import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.services.LoanServiceInterface
 import com.apmath.validation.simple.RequiredValidator
 import io.ktor.application.ApplicationCall
@@ -24,17 +30,21 @@ suspend fun ApplicationCall.v1Create(loanService: LoanServiceInterface) {
         .build()
 
     if (!validator.validate(loan)) {
-        respond(validator.messages)
-        return
+        throw BadRequestValidationException(validator)
     }
 
     val loanDomain = loan.toLoanClient()
     val loanId: Int =
         try {
             loanService.add(loanDomain)
-        } catch (e: Exception) {
-            respondError(e)
-            return
+        } catch (e: NoClientException) {
+            throw NotFoundException("Client does not exist")
+        } catch (e: NotApprovedException) {
+            throw BadRequestException("Application not approved, currently is ${e.status}")
+        } catch (e: WrongClientId) {
+            throw BadRequestException("Wrong client")
+        } catch (e: WrongAmountException) {
+            throw BadRequestException("Loan's amount must be bigger than ${e.min} and less than ${e.max}")
         }
 
     respond(mapOf("loanId" to loanId))

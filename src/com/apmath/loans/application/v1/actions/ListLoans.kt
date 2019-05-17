@@ -1,7 +1,8 @@
 package com.apmath.loans.application.v1.actions
 
+import com.apmath.loans.application.v1.exceptions.ForbiddenException
 import com.apmath.loans.application.v1.mappers.LoansMapper
-import com.apmath.loans.application.v1.respondError
+import com.apmath.loans.domain.exceptions.ForbiddenAccessException
 import com.apmath.loans.domain.services.LoanServiceInterface
 import com.apmath.validation.simple.Message
 import io.ktor.application.ApplicationCall
@@ -21,9 +22,8 @@ suspend fun ApplicationCall.v1ListLoans(loanService: LoanServiceInterface) {
     val loans =
         try {
             loanService.get(isService, clientIdHeader, clientId)
-        } catch (e: Exception) {
-            respondError(e)
-            return
+        } catch (e: ForbiddenAccessException) {
+            throw ForbiddenException("Permission denied")
         }
 
     val loansResponse = LoansMapper().map(loans,isService)
