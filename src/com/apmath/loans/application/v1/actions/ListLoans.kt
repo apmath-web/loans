@@ -31,7 +31,6 @@ suspend fun ApplicationCall.v1ListLoans(loanService: LoanServiceInterface) {
     respond(mapOf("loans" to loansResponse))
 }
 
-@Throws
 private fun getClientAttributeId(call: ApplicationCall): Int? {
 
     val userHeaderKey = "client"
