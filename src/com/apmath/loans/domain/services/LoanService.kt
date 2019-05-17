@@ -9,10 +9,13 @@ import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
 import com.apmath.loans.domain.models.loans.LoanCreationDataInterface
+import com.apmath.loans.domain.models.loans.LoanInterface
 import com.apmath.loans.domain.models.loans.toLoan
 import com.apmath.loans.domain.models.loans.toLoanInitialization
 import com.apmath.loans.domain.repositories.RepositoryInterface
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 class LoanService(
     private val applicationsFetcher: ApplicationsFetcherInterface,
@@ -63,5 +66,26 @@ class LoanService(
                 return loanEmployee.id!!
             }
         }
+    }
+
+    override suspend fun get(isService: Boolean, clientIdHeader: Int?, clientId: Int?): Array<LoanInterface> {
+        /*
+        TODO(Remove)
+        For manual testing
+        val a = Loan(
+            1,
+            2,
+            3,
+            4,
+            5,
+            "currency",
+            "date",
+            6,
+            7,
+            8
+        )
+        a.id = 95
+        return arrayOf(a)*/
+        TODO("not implemented")
     }
 }
