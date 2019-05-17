@@ -4,7 +4,7 @@ import com.apmath.loans.application.v1.models.outgoing.ResponseLoan
 import com.apmath.loans.domain.models.loans.LoanInterface
 
 class LoansMapper {
-    fun map(domainLoans: Array<LoanInterface>, isService: Boolean): Array<ResponseLoan> {
+    fun map(domainLoans: List<LoanInterface>, isService: Boolean): Array<ResponseLoan> {
 
         val loanMapper = LoanMapper()
 

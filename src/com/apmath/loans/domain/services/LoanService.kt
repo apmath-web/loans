@@ -69,7 +69,7 @@ class LoanService(
         }
     }
 
-    override suspend fun get(isService: Boolean, clientIdHeader: Int?, clientId: Int?): Array<LoanInterface> {
+    override suspend fun get(isService: Boolean, clientIdHeader: Int?, clientId: Int?): List<LoanInterface> {
         val loans: List<LoanInterface> = repository.getAll()
         val results: MutableList<LoanInterface> = arrayListOf()
 
@@ -87,6 +87,6 @@ class LoanService(
             clientId != null        -> throw ForbiddenAccessException()
         }
 
-        return results.toTypedArray()
+        return results
     }
 }
