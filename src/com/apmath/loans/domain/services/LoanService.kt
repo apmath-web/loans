@@ -70,15 +70,18 @@ class LoanService(
         val loans: List<LoanInterface> = repository.getAll()
         val results: MutableList<LoanInterface> = arrayListOf()
 
-        if (!isService) {
-            results.addAll(loans.filter { it.clientId == clientId })
-
-        } else if (clientIdHeader != null) {
-            if (clientIdHeader != clientId) {
-                throw ForbiddenAccessException()
+        when {
+            //if it's service
+            isService               -> results.addAll(loans.filter { it.clientId == clientId })
+            //if it's client
+            clientIdHeader != null  -> {
+                if (clientIdHeader != clientId) {
+                    throw ForbiddenAccessException()
+                }
+                results.addAll(loans.filter { it.clientId == clientId })
             }
-            results.addAll(loans.filter { it.clientId == clientId })
-
+            //if trying to get client without header
+            clientId != null        -> throw ForbiddenAccessException()
         }
 
         return results.toTypedArray()
