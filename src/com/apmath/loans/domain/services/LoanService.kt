@@ -70,6 +70,7 @@ class LoanService(
     }
 
     override suspend fun get(isService: Boolean, clientIdHeader: Int?, clientId: Int?): List<LoanInterface> {
+        //TODO: Do not get the entire list and then filter
         val loans: List<LoanInterface> = repository.getAll()
         val results: MutableList<LoanInterface> = arrayListOf()
 
