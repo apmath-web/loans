@@ -1,4 +1,4 @@
-package com.apmath.loans.application.v1.models
+package com.apmath.loans.application.v1.models.incoming
 
 data class LoansListRequest(
     var clientIdHeader: Int?,
