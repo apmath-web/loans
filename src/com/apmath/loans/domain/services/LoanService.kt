@@ -66,21 +66,20 @@ class LoanService(
         }
     }
 
-    override suspend fun get(mixedId: MixedIdInterface): Array<LoanInterface> {
+    override suspend fun get(isService: Boolean, clientIdHeader: Int?, clientId: Int?): Array<LoanInterface> {
         val loans: List<LoanInterface> = repository.getAll()
         val results: MutableList<LoanInterface> = arrayListOf()
 
-        if (!mixedId.isClient) {
-            results.addAll(loans.filter { it.clientId == mixedId.clientId })
+        if (!isService) {
+            results.addAll(loans.filter { it.clientId == clientId })
 
-        } else if (mixedId.clientIdHeader != null) {
-            if (mixedId.clientIdHeader != mixedId.clientId) {
+        } else if (clientIdHeader != null) {
+            if (clientIdHeader != clientId) {
                 throw ForbiddenAccessException()
             }
-            results.addAll(loans.filter { it.clientId == mixedId.clientId })
+            results.addAll(loans.filter { it.clientId == clientId })
 
-        } else
-            throw BadRequestException()
+        }
 
         return results.toTypedArray()
     }
