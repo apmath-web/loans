@@ -1,9 +1,9 @@
 package com.apmath.loans.domain.models.loans
 
-import com.apmath.loans.domain.exceptions.runtime.ChangeIdentifiedCreditIdException
 import com.apmath.loans.domain.data.Currency
 import com.apmath.loans.domain.data.Money
 import com.apmath.loans.domain.data.Type
+import com.apmath.loans.domain.exceptions.runtime.ChangeIdentifiedCreditIdException
 import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface as ResponsePaymentInterface
 
 class Loan(
@@ -20,7 +20,6 @@ class Loan(
     override val regularPaymentAmount: Money,
     override val remainingTerm: Int
 ) : LoanInterface {
-    @Transient
     override var id: Int? = null
         set(value) {
             if (field == null) {
@@ -33,7 +32,6 @@ class Loan(
     override var completed: Boolean = false
         private set
 
-    @Transient
     private val payments: MutableList<ResponsePaymentInterface> = arrayListOf()
 
     override fun getPayments(type: Type?): List<ResponsePaymentInterface> {

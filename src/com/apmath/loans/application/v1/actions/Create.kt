@@ -1,7 +1,7 @@
 package com.apmath.loans.application.v1.actions
 
-import com.apmath.loans.application.v1.models.Loan
-import com.apmath.loans.application.v1.models.toLoanClient
+import com.apmath.loans.application.v1.models.incoming.Loan
+import com.apmath.loans.application.v1.models.incoming.toLoanClient
 import com.apmath.loans.application.v1.respondError
 import com.apmath.loans.application.v1.validators.LoanBuilder
 import com.apmath.loans.domain.services.LoanServiceInterface
