@@ -2,7 +2,6 @@ package com.apmath.loans.application.v1.actions
 
 import com.apmath.loans.application.v1.models.MixedLoan
 import com.apmath.loans.application.v1.models.toMixedLoanId
-import com.apmath.loans.application.v1.respondError
 import com.apmath.loans.application.v1.validators.MixedLoanBuilder
 import com.apmath.loans.domain.services.PaymentServiceInterface
 import com.apmath.validation.simple.NullableValidator
@@ -12,6 +11,8 @@ import com.apmath.loans.domain.models.payments.Payment as PaymentModel
 import io.ktor.application.ApplicationCall
 import io.ktor.response.respond
 
+
+//TODO rewrite @rgimranova
 suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterface){
     val mixed = MixedLoan(
         getUserId(request),
@@ -35,7 +36,7 @@ suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterfa
             try {
                 paymentService.get(mixedLoanId)
             } catch (e:Exception) {
-                respondError(e)
+                //TODO Exceptions
                 return
             }
 
