@@ -3,9 +3,11 @@ package com.apmath.loans.application.v1
 import com.apmath.loans.application.v1.actions.v1Create
 import com.apmath.loans.application.v1.actions.v1Info
 import com.apmath.loans.application.v1.actions.v1ListLoans
+import com.apmath.loans.application.v1.actions.v1ListPayments
 import com.apmath.loans.application.v1.exceptions.ApiException
 import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
 import com.apmath.loans.domain.services.LoanServiceInterface
+import com.apmath.loans.domain.services.PaymentServiceInterface
 import com.apmath.validation.PathMessageInterface
 import io.ktor.application.ApplicationCall
 import io.ktor.application.call
@@ -26,6 +28,7 @@ internal fun Routing.v1() {
 
 private fun Routing.v1Info() {
     val loanService: LoanServiceInterface by inject()
+    val paymentService: PaymentServiceInterface by inject()
 
     route("v1") {
         get("info") {
@@ -36,6 +39,9 @@ private fun Routing.v1Info() {
         }
         get {
             call.v1ListLoans(loanService)
+        }
+        get ("{id}/payments"){
+            call.v1ListPayments(paymentService)
         }
     }
 }
