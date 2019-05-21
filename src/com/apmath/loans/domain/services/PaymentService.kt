@@ -21,7 +21,7 @@ class PaymentService(
     private val calculationsFetcher: CalculationsFetcherInterface,
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
-    override suspend fun get(mixedLoanId: MixedLoanIdInterface): Array<PaymentFromCalculationInterface> {
+    override suspend fun get(isService: Boolean, loanIdHeader: Int?, loanId: Int?): Array<PaymentFromCalculationInterface> {
         // for manual testing
         val payment = PaymentFromCalculation(
             "date",
