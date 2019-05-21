@@ -1,10 +1,7 @@
 package com.apmath.loans.domain.services
 
 import com.apmath.loans.domain.data.Status
-import com.apmath.loans.domain.exceptions.NoClientException
-import com.apmath.loans.domain.exceptions.NotApprovedException
-import com.apmath.loans.domain.exceptions.WrongAmountException
-import com.apmath.loans.domain.exceptions.WrongClientId
+import com.apmath.loans.domain.exceptions.*
 import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
@@ -48,12 +45,15 @@ class LoanService(
             //client does not exists
             !client
             -> throw NoClientException()
+
             //application status is not approved
             application.status != Status.APPROVED
             -> throw NotApprovedException(application.status)
+
             //application's client is not our client
             application.clientId != clientId
             -> throw WrongClientId()
+
             //amount must be in bounds
             loan.amount > application.maxAmount || loan.amount < application.minAmount
             -> throw WrongAmountException(application.minAmount, application.maxAmount)
@@ -69,24 +69,25 @@ class LoanService(
         }
     }
 
-    override suspend fun get(mixedId: MixedIdInterface): Array<LoanInterface> {
-        /*
-        TODO(Remove)
-        For manual testing
-        val a = Loan(
-            1,
-            2,
-            3,
-            4,
-            5,
-            "currency",
-            "date",
-            6,
-            7,
-            8
-        )
-        a.id = 95
-        return arrayOf(a)*/
-        TODO("not implemented")
+    override suspend fun get(isService: Boolean, clientIdHeader: Int?, clientId: Int?): List<LoanInterface> {
+        //TODO: Do not get the entire list and then filter
+        val loans: List<LoanInterface> = repository.getAll()
+        val results: MutableList<LoanInterface> = arrayListOf()
+
+        when {
+            //if it's service
+            isService               -> results.addAll(loans.filter { it.clientId == clientId })
+            //if it's client
+            clientIdHeader != null  -> {
+                if (clientIdHeader != clientId) {
+                    throw ForbiddenAccessException()
+                }
+                results.addAll(loans.filter { it.clientId == clientId })
+            }
+            //if trying to get client without header
+            clientId != null        -> throw ForbiddenAccessException()
+        }
+
+        return results
     }
 }

@@ -1,6 +1,6 @@
 package com.apmath.loans.application.v1.actions
 
-import com.apmath.loans.application.v1.models.Info
+import com.apmath.loans.application.v1.models.incoming.Info
 import io.ktor.application.ApplicationCall
 import io.ktor.response.respond
 

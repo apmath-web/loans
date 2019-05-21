@@ -1,4 +1,4 @@
-package com.apmath.loans.application.v1.models
+package com.apmath.loans.application.v1.models.incoming
 
 import com.apmath.loans.domain.data.Currency
 import com.apmath.loans.domain.data.Money
