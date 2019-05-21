@@ -1,8 +1,7 @@
 package com.apmath.loans.application.v1.actions
 
-import com.apmath.loans.application.v1.models.Payment
-import com.apmath.loans.application.v1.models.toPaymentDomain
-import com.apmath.loans.application.v1.respondError
+import com.apmath.loans.application.v1.models.incoming.Payment
+import com.apmath.loans.application.v1.models.incoming.toPaymentDomain
 import com.apmath.loans.application.v1.validators.PaymentBuilder
 import com.apmath.loans.domain.services.PaymentServiceInterface
 import com.apmath.validation.simple.NullableValidator
@@ -11,7 +10,7 @@ import io.ktor.application.ApplicationCall
 import io.ktor.http.Parameters
 import io.ktor.request.receive
 import io.ktor.response.respond
-import java.lang.reflect.Parameter
+
 
 suspend fun ApplicationCall.v1Payment (paymentService: PaymentServiceInterface){
     val payment = receive<Payment>()
@@ -37,7 +36,8 @@ suspend fun ApplicationCall.v1Payment (paymentService: PaymentServiceInterface){
             try {
                 paymentService.add(paymentDomain)
             } catch (e:Exception) {
-                respondError(e)
+
+                //TODO add Exceptions handler
                 return
             }
 
