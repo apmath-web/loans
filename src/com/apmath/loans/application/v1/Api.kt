@@ -40,7 +40,8 @@ private fun Routing.v1Info() {
             call.v1ListPayments(paymentService)
         }
         post("{id}/payment"){
-            call.v1Payment(paymentService)
+            val parameters = call.parameters
+            call.v1Payment(paymentService, parameters["id"]!!)
         }
     }
 }
