@@ -11,7 +11,7 @@ class Payment {
     var currency: Currency? = null
     var date: String? = null
     var clientId: Int? = null
-    var loanId: Int? = null
+    var loanId: String? = null
 }
 
 fun Payment.toPaymentDomain() = PaymentDomain(
@@ -23,5 +23,5 @@ fun Payment.toPaymentDomain() = PaymentDomain(
         LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
     },
     clientId!!,
-    loanId!!
+    loanId!!.toInt()
 )
