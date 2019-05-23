@@ -13,9 +13,7 @@ import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 
 //TODO: temporary implementation
-open class AbstractFetcher(host: String, port: Int) {
-    val host: String = host
-    val port: Int = port
+open class AbstractFetcher(val host: String, val port: Int) {
     suspend inline fun <reified T> get(path: String): T {
         return AbstractFetcher.client.request {
             method = HttpMethod.Get
