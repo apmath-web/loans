@@ -10,16 +10,16 @@ import io.ktor.application.ApplicationCall
 import io.ktor.response.respond
 import java.lang.NumberFormatException
 
-suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterface){
+suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterface, loanIdParam: String){
+    val loanId =
+        try {
+             loanIdParam.toInt()
+            } catch (e: NumberFormatException) {
+                respond(Message("Loan id must be between 1 and ${Int.MAX_VALUE}"))
+                return
+         }
     val isService = isService(request)
     val loanIdHeader = getLoanId(request)
-
-    val loanId = try {
-        getLoanAttributeId(this)
-    } catch (e: NumberFormatException) {
-        respond(Message("Loan id must be between 1 and ${Int.MAX_VALUE}"))
-        return
-    }
 
     val payments =
             try {
@@ -29,15 +29,4 @@ suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterfa
             }
 
     respond(mapOf("payments" to payments))
-}
-
-private fun getLoanAttributeId(call: ApplicationCall): Int? {
-
-    val headerKey = "loan"
-
-    if (call.parameters.contains(headerKey)) {
-        return call.parameters[headerKey]?.toInt()
-    }
-
-    return null
 }
