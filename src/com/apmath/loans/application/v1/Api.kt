@@ -28,6 +28,7 @@ internal fun Routing.v1() {
 
 private fun Routing.v1Info() {
     val loanService: LoanServiceInterface by inject()
+    val paymentService: PaymentServiceInterface by inject()
 
     route("v1") {
         get("info") {
@@ -41,7 +42,7 @@ private fun Routing.v1Info() {
         }
         get ("{id}/payments"){
             val parameters = call.parameters
-            call.v1ListPayments(parameters["id"]!!)
+            call.v1ListPayments(paymentService, parameters["id"]!!)
         }
     }
 }
