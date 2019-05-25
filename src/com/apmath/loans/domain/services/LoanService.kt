@@ -27,7 +27,7 @@ class LoanService(
         val applicationId = loan.applicationId
 
         val applicationResult = GlobalScope.async {
-            applicationsFetcher.getApplication(applicationId)
+            applicationsFetcher.getApplication(clientId, applicationId)
         }
         val clientResult = GlobalScope.async {
             clientsFetcher.isExists(clientId)
