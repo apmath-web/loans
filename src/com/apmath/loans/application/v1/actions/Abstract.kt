@@ -1,6 +1,8 @@
 package com.apmath.loans.application.v1.actions
 
 import com.apmath.loans.infrastructure.fetchers.Host
+import com.apmath.validation.simple.Message
+import io.ktor.response.respond
 import io.ktor.request.ApplicationRequest
 
 fun getUserId(request: ApplicationRequest): Int? {
@@ -42,6 +44,18 @@ fun getLoanId(request: ApplicationRequest): Int? {
         } catch (e: NumberFormatException) {
 
         }
+    }
+
+    return null
+}
+
+//TODO: redo with suitable integer validator
+fun getAndValidateId(parameterId: String): Int? {
+
+    try {
+        return parameterId.toInt()
+    } catch (e: NumberFormatException) {
+
     }
 
     return null
