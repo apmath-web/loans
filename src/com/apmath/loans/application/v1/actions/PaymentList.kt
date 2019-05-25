@@ -5,19 +5,10 @@ import com.apmath.loans.domain.exceptions.LoanNotFoundException
 import com.apmath.loans.domain.services.PaymentServiceInterface
 import com.apmath.loans.domain.models.loans.Loan as LoanModel
 import com.apmath.loans.domain.models.payments.Payment as PaymentModel
-import com.apmath.validation.simple.Message
 import io.ktor.application.ApplicationCall
 import io.ktor.response.respond
-import java.lang.NumberFormatException
 
-suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterface, loanIdParam: String){
-    val loanId =
-        try {
-             loanIdParam.toInt()
-            } catch (e: NumberFormatException) {
-                respond(Message("Loan id must be between 1 and ${Int.MAX_VALUE}"))
-                return
-         }
+suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterface, loanId: Int?){
     val loanIdHeader = getLoanId(request)
 
     val payments =

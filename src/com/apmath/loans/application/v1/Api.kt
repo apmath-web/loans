@@ -1,9 +1,6 @@
 package com.apmath.loans.application.v1
 
-import com.apmath.loans.application.v1.actions.v1Create
-import com.apmath.loans.application.v1.actions.v1Info
-import com.apmath.loans.application.v1.actions.v1ListLoans
-import com.apmath.loans.application.v1.actions.v1ListPayments
+import com.apmath.loans.application.v1.actions.*
 import com.apmath.loans.application.v1.exceptions.ApiException
 import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
 import com.apmath.loans.domain.services.LoanServiceInterface
@@ -42,7 +39,7 @@ private fun Routing.v1Info() {
         }
         get ("{id}/payments"){
             val parameters = call.parameters
-            call.v1ListPayments(paymentService, parameters["id"]!!)
+            call.v1ListPayments(paymentService, getAndValidateId(parameters["id"]!!)!!)
         }
     }
 }
