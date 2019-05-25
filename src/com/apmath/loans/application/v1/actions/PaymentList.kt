@@ -18,12 +18,11 @@ suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterfa
                 respond(Message("Loan id must be between 1 and ${Int.MAX_VALUE}"))
                 return
          }
-    val isService = isService(request)
     val loanIdHeader = getLoanId(request)
 
     val payments =
             try {
-                paymentService.get(isService, loanIdHeader, loanId)
+                paymentService.get(loanIdHeader, loanId)
             } catch (e: LoanNotFoundException) {
                  NotFoundException("Loan not found")
             }
