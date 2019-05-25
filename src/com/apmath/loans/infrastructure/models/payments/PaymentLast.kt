@@ -5,6 +5,6 @@ import com.apmath.loans.domain.data.Money
 
 data class PaymentLast(
     override val date: String,
-    override val amount: Money,
+    override val body: Money,
     override val remainCreditBody: Money
 ) : PaymentLastInterface
