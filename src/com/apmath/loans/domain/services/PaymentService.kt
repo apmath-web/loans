@@ -9,7 +9,7 @@ class PaymentService(
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
     override suspend fun add(payment: PaymentInterface): String {
-        //TODO("not implemented")
+        //TODO("not implemented") логические ошибки - отрицательное число запрлатить
         return "2019-03-09"
     }
 
