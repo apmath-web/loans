@@ -4,6 +4,6 @@ import com.apmath.loans.domain.data.Money
 
 interface PaymentLastInterface {
     val date: String
-    val amount: Money
+    val body: Money
     val remainCreditBody: Money
 }
