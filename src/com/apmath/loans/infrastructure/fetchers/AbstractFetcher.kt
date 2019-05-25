@@ -13,14 +13,13 @@ import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 
 //TODO: temporary implementation
-open class AbstractFetcher(
-    val host: Host
-) {
+open class AbstractFetcher(val host: String, val port: Int) {
     suspend inline fun <reified T> get(path: String): T {
         return AbstractFetcher.client.request {
             method = HttpMethod.Get
             url(
-                host = host.value,
+                host = host,
+                port = port,
                 path = path
             )
         }
@@ -30,7 +29,8 @@ open class AbstractFetcher(
         return AbstractFetcher.client.request {
             method = HttpMethod.Post
             url(
-                host = host.value,
+                host = host,
+                port = port,
                 path = path
             )
             body = bodyReq
@@ -42,7 +42,8 @@ open class AbstractFetcher(
         return AbstractFetcher.client.request {
             method = HttpMethod.Put
             url(
-                host = host.value,
+                host = host,
+                port = port,
                 path = path
             )
             body = bodyReq
@@ -53,7 +54,8 @@ open class AbstractFetcher(
     suspend inline fun isSuccess(path: String): Boolean {
         return AbstractFetcher.client.call {
             url(
-                host = host.value,
+                host = host,
+                port = port,
                 path = path
             )
         }.response.status.isSuccess()
