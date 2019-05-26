@@ -13,7 +13,7 @@ suspend fun ApplicationCall.v1ListLoans(loanService: LoanServiceInterface) {
     val clientIdHeader = getUserId(request)
 
     val clientId = try {
-        getClientAttributeId(this)
+        getClientAttributeId()
     } catch (e: NumberFormatException) {
         respond(Message("Client id must be between 1 and ${Int.MAX_VALUE}"))
         return
@@ -29,15 +29,4 @@ suspend fun ApplicationCall.v1ListLoans(loanService: LoanServiceInterface) {
     val loansResponse = LoansMapper().map(loans,isService)
 
     respond(mapOf("loans" to loansResponse))
-}
-
-private fun getClientAttributeId(call: ApplicationCall): Int? {
-
-    val userHeaderKey = "client"
-
-    if (call.parameters.contains(userHeaderKey)) {
-        return call.parameters[userHeaderKey]?.toInt()
-    }
-
-    return null
 }

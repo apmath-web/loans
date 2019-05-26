@@ -1,6 +1,7 @@
 package com.apmath.loans.application.v1.actions
 
 import com.apmath.loans.infrastructure.fetchers.Host
+import io.ktor.application.ApplicationCall
 import io.ktor.request.ApplicationRequest
 
 fun getUserId(request: ApplicationRequest): Int? {
@@ -30,4 +31,15 @@ fun isService(request: ApplicationRequest): Boolean {
     }
 
     return false
+}
+
+fun ApplicationCall.getClientAttributeId(): Int? {
+
+    val userHeaderKey = "client"
+
+    if (parameters.contains(userHeaderKey)) {
+        return parameters[userHeaderKey]?.toInt()
+    }
+
+    return null
 }

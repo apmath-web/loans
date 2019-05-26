@@ -10,7 +10,6 @@ class Payment {
     var payment: Money? = null
     var currency: Currency? = null
     var date: String? = null
-    var clientId: Int? = null
     var loanId: String? = null
 }
 
