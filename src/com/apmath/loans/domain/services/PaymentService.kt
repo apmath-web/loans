@@ -9,20 +9,12 @@ import com.apmath.loans.domain.repositories.RepositoryInterface
 import com.apmath.loans.infrastructure.models.payments.PaymentFromCalculation
 
 class PaymentService(
-    private val calculationsFetcher: CalculationsFetcherInterface,
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
-    override suspend fun get(loanIdHeader: Int?, loanId: Int?): Array<PaymentFromCalculationInterface> {
-        // for manual testing
-        val payment = PaymentFromCalculation(
-            "date",
-            1,
-            2,
-            3,
-            Type.REGULAR,
-            4,
-            5
-        )
-        return arrayOf(payment)
+    override suspend fun get(loanIdHeader: Int?, loanId: Int): List<PaymentFromCalculationInterface> {
+
+        val results: List<PaymentFromCalculationInterface> = repository.getListOfPayments(loanId, null)
+
+        return results
     }
 }
