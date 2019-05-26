@@ -12,7 +12,7 @@ data class Application(
     override val status: Status,
 
     override val clientId: Int,
-    override val interest: Int,
+    override val interest: Float,
     override val maxAmount: Money,
     override val minAmount: Money
 ) : ApplicationInterface
