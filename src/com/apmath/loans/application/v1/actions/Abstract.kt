@@ -33,12 +33,12 @@ fun isService(request: ApplicationRequest): Boolean {
     return false
 }
 
-fun ApplicationCall.getClientAttributeId(): Int? {
+fun ApplicationCall.getClientAttributeId(): String? {
 
     val userHeaderKey = "client"
 
     if (parameters.contains(userHeaderKey)) {
-        return parameters[userHeaderKey]?.toInt()
+        return parameters[userHeaderKey]
     }
 
     return null

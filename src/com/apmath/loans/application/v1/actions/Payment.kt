@@ -17,7 +17,7 @@ suspend fun ApplicationCall.v1Payment(paymentService: PaymentServiceInterface, l
     payment.loanId = loanIdKey
 
     val clientId = try {
-        getClientAttributeId()!!
+        getClientAttributeId()!!.toInt()
     } catch (e: NumberFormatException) {
         respond(Message("Client id must be between 1 and ${Int.MAX_VALUE}"))
         return
