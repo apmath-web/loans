@@ -8,11 +8,5 @@ import com.apmath.loans.domain.data.Status
 data class Application(
     override val amount: Money,
     override val currency: Currency,
-    override val period: Int,
-    override val status: Status,
-
-    override val clientId: Int,
-    override val interest: Int,
-    override val maxAmount: Money,
-    override val minAmount: Money
+    override val term: Int
 ) : ApplicationInterface
