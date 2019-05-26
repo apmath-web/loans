@@ -11,7 +11,7 @@ interface ApplicationInterface {
     val status: Status
 
     val clientId: Int
-    val interest: Int
+    val interest: Float
     val maxAmount: Money
     val minAmount: Money
 }
