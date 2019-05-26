@@ -5,6 +5,8 @@ import com.apmath.loans.domain.exceptions.runtime.RemoveAbsentLoanException
 import com.apmath.loans.domain.exceptions.runtime.RemoveUnidentifiedLoanException
 import com.apmath.loans.domain.exceptions.runtime.StoreIdentifiedLoanException
 import com.apmath.loans.domain.models.loans.LoanInterface
+import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
+import com.apmath.loans.domain.data.Type
 
 class Repository : RepositoryInterface {
     private var identity: Int = 1
@@ -34,4 +36,7 @@ class Repository : RepositoryInterface {
         this.loans.remove(loan.id)
     }
 
+    override fun getListOfPayments(id: Int, type: Type?): List<PaymentFromCalculationInterface> {
+        return loans[id]!!.getPayments(type)
+    }
 }
