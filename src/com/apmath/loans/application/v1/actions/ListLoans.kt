@@ -13,7 +13,7 @@ suspend fun ApplicationCall.v1ListLoans(loanService: LoanServiceInterface) {
     val clientIdHeader = getUserId(request)
 
     val clientId = try {
-        getClientAttributeId()
+        getClientAttributeId()?.toInt()
     } catch (e: NumberFormatException) {
         respond(Message("Client id must be between 1 and ${Int.MAX_VALUE}"))
         return
