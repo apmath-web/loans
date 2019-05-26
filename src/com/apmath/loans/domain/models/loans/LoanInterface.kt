@@ -8,12 +8,12 @@ interface LoanInterface : LoanCreationDataInterface {
     //also LoanCreationDataInterface here
     var id: Int?
 
-    val interest: Int
+    val interest: Float
     val rounding: Int
-    val regularPaymentAmount: Money
+    var regularPaymentAmount: Money
     val remainingTerm: Int
-    val completed: Boolean
+    var completed: Boolean
 
-    fun getPayments(type: Type?): List<ResponsePaymentInterface>
+    fun getPayments(type: Type? = null): List<ResponsePaymentInterface>
     fun writeOf(payment: ResponsePaymentInterface)
 }
