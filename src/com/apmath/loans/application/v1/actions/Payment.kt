@@ -26,6 +26,13 @@ suspend fun ApplicationCall.v1Payment(paymentService: PaymentServiceInterface, l
         return
     }
 
+    val loanId = try {
+        loanIdKey.toInt()
+    } catch (e: NumberFormatException) {
+        respond(Message("Loan id must be between 1 and ${Int.MAX_VALUE}"))
+        return
+    }
+
     val validator = PaymentBuilder()
         .prepend("payment", RequiredValidator())
         .prepend("currency", RequiredValidator())
@@ -38,8 +45,6 @@ suspend fun ApplicationCall.v1Payment(paymentService: PaymentServiceInterface, l
     }
 
     val paymentDomain = payment.toPaymentDomain()
-
-    val loanId = payment.loanId!!.toInt()
 
     val date =
         try {
