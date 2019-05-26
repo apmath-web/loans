@@ -34,6 +34,7 @@ fun Application.module(testing: Boolean = false) {
 
     install(Koin) {
         slf4jLogger()
+        properties(mapOf("config" to environment.config))
         modules(loans)
     }
 
