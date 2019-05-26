@@ -34,23 +34,12 @@ fun isService(request: ApplicationRequest): Boolean {
     return false
 }
 
-fun getLoanId(request: ApplicationRequest): Int? {
-
-    val loanHeaderKey = "loanId"
-
-    if (request.headers.contains(loanHeaderKey)) {
-        try {
-            return request.headers[loanHeaderKey]?.toInt()
-        } catch (e: NumberFormatException) {
-
-        }
-    }
-
-    return null
-}
-
 //TODO: redo with suitable integer validator
-fun getAndValidateId(parameterId: String): Int? {
+fun getAndValidateId(parameterId: String?): Int? {
+
+    if (parameterId == null) {
+        return null
+    }
 
     try {
         return parameterId.toInt()

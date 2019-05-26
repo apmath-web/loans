@@ -8,8 +8,9 @@ import com.apmath.loans.domain.models.payments.Payment as PaymentModel
 import io.ktor.application.ApplicationCall
 import io.ktor.response.respond
 
-suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterface, loanId: Int){
-    val loanIdHeader = getLoanId(request)
+suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterface, loanIdParam: String, loanIdHeaderParam: String?){
+    val loanId = getAndValidateId(loanIdParam)
+    val loanIdHeader = getAndValidateId(loanIdHeaderParam)
 
     val payments =
             try {
