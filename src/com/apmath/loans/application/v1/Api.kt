@@ -40,7 +40,7 @@ private fun Routing.v1Info() {
         get ("{id}/payments"){
             val parameters = call.parameters
             val headers = call.request.headers
-            call.v1ListPayments(paymentService, parameters["id"]!!, headers["loanId"]!!)
+            call.v1ListPayments(paymentService, parameters["id"]!!, headers["loanId"])
         }
     }
 }

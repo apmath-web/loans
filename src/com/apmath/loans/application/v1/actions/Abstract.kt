@@ -35,7 +35,11 @@ fun isService(request: ApplicationRequest): Boolean {
 }
 
 //TODO: redo with suitable integer validator
-fun getAndValidateId(parameterId: String): Int? {
+fun getAndValidateId(parameterId: String?): Int? {
+
+    if (parameterId == null) {
+        return null
+    }
 
     try {
         return parameterId.toInt()
