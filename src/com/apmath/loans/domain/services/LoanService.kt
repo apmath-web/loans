@@ -50,14 +50,6 @@ class LoanService(
             application.status != Status.APPROVED
             -> throw NotApprovedException(application.status)
 
-            //application's client is not our client
-            application.clientId != clientId
-            -> throw WrongClientId()
-
-            //amount must be in bounds
-            loan.amount > application.maxAmount || loan.amount < application.minAmount
-            -> throw WrongAmountException(application.minAmount, application.maxAmount)
-
             else -> {
                 val interest = application.interest
 
