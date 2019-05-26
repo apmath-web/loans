@@ -30,9 +30,12 @@ suspend fun ApplicationCall.v1Payment(paymentService: PaymentServiceInterface, l
 
     val paymentDomain = payment.toPaymentDomain()
 
+    val loanId = payment.loanId!!.toInt()
+    val clientId = payment.clientId!!
+
     val date =
         try {
-            paymentService.add(paymentDomain)
+            paymentService.add(paymentDomain, loanId, clientId)
         } catch (e: Exception) {
 
             //TODO add Exceptions handler

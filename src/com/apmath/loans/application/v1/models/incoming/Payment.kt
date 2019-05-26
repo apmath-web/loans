@@ -21,7 +21,5 @@ fun Payment.toPaymentDomain() = PaymentDomain(
         LocalDate.now()
     } else {
         LocalDate.parse(date, DateTimeFormatter.ISO_DATE)
-    },
-    clientId!!,
-    loanId!!.toInt()
+    }
 )
