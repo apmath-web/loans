@@ -37,6 +37,9 @@ class Repository : RepositoryInterface {
     }
 
     override fun getListOfPayments(id: Int, type: Type?): List<PaymentFromCalculationInterface> {
-        return loans[id]!!.getPayments(type)
+
+        val loan = get(id)
+
+        return loan.getPayments(type)
     }
 }
