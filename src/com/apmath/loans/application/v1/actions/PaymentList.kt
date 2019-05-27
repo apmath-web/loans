@@ -14,7 +14,7 @@ suspend fun ApplicationCall.v1ListPayments(paymentService: PaymentServiceInterfa
 
     val payments =
             try {
-                paymentService.get(loanIdHeader, loanId)
+                paymentService.get(loanIdHeader, loanId!!)
             } catch (e: LoanNotFoundException) {
                  NotFoundException("Loan not found")
             }
