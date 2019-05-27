@@ -32,7 +32,7 @@ private fun Routing.v1Info() {
         get("info") {
             call.v1Info()
         }
-        post("loan") {
+        post {
             call.v1Create(loanService)
         }
         get {
