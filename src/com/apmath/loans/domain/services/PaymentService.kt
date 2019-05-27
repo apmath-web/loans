@@ -1,5 +1,8 @@
 package com.apmath.loans.domain.services
 
+import com.apmath.loans.application.v1.exceptions.ForbiddenException
+import com.apmath.loans.domain.exceptions.AlreadyPayException
+import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.models.mappers.getFirstCalculationsPayment
 import com.apmath.loans.domain.models.mappers.getNextCalculationsPayment
@@ -38,9 +41,9 @@ class PaymentService(
 
         when {
 
-            loan.clientId != payment.clientId -> throw Exception()
+            loan.clientId != payment.clientId -> throw WrongClientId()
 
-            loan.completed -> throw Exception()
+            loan.completed -> throw AlreadyPayException()
 
             else -> {
                 val loanDetails = resultPayment.loan
