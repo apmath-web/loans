@@ -16,6 +16,7 @@ import org.koin.experimental.builder.singleBy
 val loans = module {
     //services
     singleBy<LoanServiceInterface, LoanService>()
+    singleBy<PaymentServiceInterface, PaymentService>()
     //fetchers
     single {
         val config = getProperty<ApplicationConfig>("config")
