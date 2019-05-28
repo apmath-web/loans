@@ -40,9 +40,9 @@ class PaymentService(
 
         when {
 
-            loan.clientId != clientId -> throw Exception()
+            loan.clientId != clientId -> throw WrongClientId()
 
-            loan.completed -> throw Exception()
+            loan.completed -> throw AlreadyPayException()
 
             else -> {
                 val loanDetails = resultPayment.loan
@@ -73,4 +73,5 @@ class PaymentService(
         )
         return arrayOf(payment)
     }
+
 }
