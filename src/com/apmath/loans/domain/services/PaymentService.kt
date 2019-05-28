@@ -8,7 +8,6 @@ import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.models.mappers.getFirstCalculationsPayment
 import com.apmath.loans.domain.models.mappers.getNextCalculationsPayment
 import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
-import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
 import com.apmath.loans.domain.models.payments.PaymentInterface
 import com.apmath.loans.domain.repositories.RepositoryInterface
 import com.apmath.loans.infrastructure.models.payments.PaymentFromCalculation
@@ -23,7 +22,7 @@ class PaymentService(
     override suspend fun get(loanId: Int, clientId: Int?): Array<PaymentFromCalculationInterface> {
         // for manual testing
         val payment = PaymentFromCalculation(
-            "date",
+            LocalDate.now(),
             1,
             2,
             3,
@@ -34,10 +33,9 @@ class PaymentService(
         return arrayOf(payment)
     }
 
-    override suspend fun add(payment: PaymentInterface): LocalDate {
+    override suspend fun add(payment: PaymentInterface, loanId: Int, clientId: Int?): LocalDate {
 
         val loan = repository.get(payment.loanId)
-
 
         val asyncPayment = GlobalScope.async {
             val isFirstPay = loan.getPayments().isEmpty()
