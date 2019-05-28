@@ -7,6 +7,9 @@ import com.apmath.loans.application.v1.actions.v1ListLoans
 import com.apmath.loans.application.v1.actions.v1ListPayments
 import com.apmath.loans.application.v1.exceptions.ApiException
 import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
+import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
+import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
+import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
 import com.apmath.loans.domain.services.LoanServiceInterface
 import com.apmath.loans.domain.services.PaymentServiceInterface
 import com.apmath.validation.PathMessageInterface
@@ -28,9 +31,15 @@ internal fun Routing.v1() {
 private fun Routing.v1Info() {
     val loanService: LoanServiceInterface by inject()
     val paymentService: PaymentServiceInterface by inject()
+    val aFet: ApplicationsFetcherInterface by inject()
+    val calFet: CalculationsFetcherInterface by inject()
+    val clFet: ClientsFetcherInterface by inject()
 
     route("v1") {
         get("info") {
+            println(aFet.getInfo())
+            println(calFet.getInfo())
+            println(clFet.getInfo())
             call.v1Info()
         }
         post {

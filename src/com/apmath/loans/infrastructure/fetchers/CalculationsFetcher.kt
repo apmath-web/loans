@@ -1,5 +1,6 @@
 package com.apmath.loans.infrastructure.fetchers
 
+import com.apmath.loans.application.v1.models.incoming.Info
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.models.NextCalculationsPaymentInterface
 import com.apmath.loans.domain.models.ResultCalculationsPaymentInterface
@@ -10,6 +11,10 @@ class CalculationsFetcher(
     host: String,
     port: Int
 ) : AbstractFetcher(host, port), CalculationsFetcherInterface {
+    override suspend fun getInfo(): Info {
+        return get("/v1/info")
+    }
+
     override suspend fun initialization(loan: LoanInitializationInterface): LoanDetails {
         return post("/v1/loan", loan)
     }
