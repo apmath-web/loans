@@ -46,7 +46,8 @@ private fun Routing.v1Info() {
         }
         post("{id}/payment"){
             val parameters = call.parameters
-            call.v1Payment(paymentService, parameters["id"]!!)
+            val headers = call.request.headers
+            call.v1Payment(paymentService, parameters["id"]!!, headers["clientId"])
         }
     }
 }

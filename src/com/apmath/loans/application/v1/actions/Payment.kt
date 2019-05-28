@@ -12,6 +12,7 @@ import com.apmath.loans.domain.exceptions.ForbiddenAccessException
 import com.apmath.loans.domain.exceptions.NoClientException
 import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.services.PaymentServiceInterface
+import com.apmath.validation.simple.Message
 import com.apmath.validation.simple.NullableValidator
 import com.apmath.validation.simple.RequiredValidator
 import io.ktor.application.ApplicationCall
@@ -19,16 +20,22 @@ import io.ktor.client.features.BadResponseStatusException
 import io.ktor.request.receive
 import io.ktor.response.respond
 
-suspend fun ApplicationCall.v1Payment(paymentService: PaymentServiceInterface, loanId: String) {
+suspend fun ApplicationCall.v1Payment(
+    paymentService: PaymentServiceInterface,
+    loanIdKey: String,
+    clientIdParam: String?
+) {
     val payment = receive<Payment>()
-    payment.clientId = getUserId(request)
-    payment.loanId = loanId
+    payment.loanId = loanIdKey
+
+    val clientId = getAndValidateClientId(clientIdParam)
+
+    val loanId = getAndValidateLoanId(loanIdKey)
 
     val validator = PaymentBuilder()
         .prepend("payment", RequiredValidator())
         .prepend("currency", RequiredValidator())
         .prepend("date", NullableValidator())
-        .prepend("clientId", NullableValidator())
         .prepend("loanId", RequiredValidator())
         .build()
 
@@ -41,7 +48,7 @@ suspend fun ApplicationCall.v1Payment(paymentService: PaymentServiceInterface, l
     val date =
         try {
 
-            paymentService.add(paymentDomain)
+            paymentService.add(paymentDomain, loanId, clientId)
 
         } catch (e: AlreadyPayException) {
             throw BadRequestException("Loan already payed")

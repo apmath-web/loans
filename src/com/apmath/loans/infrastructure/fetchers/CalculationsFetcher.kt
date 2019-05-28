@@ -6,8 +6,10 @@ import com.apmath.loans.domain.models.ResultCalculationsPaymentInterface
 import com.apmath.loans.domain.models.loans.LoanInitializationInterface
 import com.apmath.loans.infrastructure.models.loans.LoanDetails
 
-class CalculationsFetcher(host: String, port: Int)
-    : AbstractFetcher(host, port), CalculationsFetcherInterface {
+class CalculationsFetcher(
+    host: String,
+    port: Int
+) : AbstractFetcher(host, port), CalculationsFetcherInterface {
     override suspend fun initialization(loan: LoanInitializationInterface): LoanDetails {
         return post("/v1/loan", loan)
     }

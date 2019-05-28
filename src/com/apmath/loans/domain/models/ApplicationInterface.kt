@@ -7,11 +7,5 @@ import com.apmath.loans.domain.data.Status
 interface ApplicationInterface {
     val amount: Money
     val currency: Currency
-    val period: Int
-    val status: Status
-
-    val clientId: Int
-    val interest: Float
-    val maxAmount: Money
-    val minAmount: Money
+    val term: Int
 }

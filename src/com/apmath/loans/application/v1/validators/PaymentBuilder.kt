@@ -10,7 +10,6 @@ class PaymentBuilder : ObjectValidatorBuilder() {
         append("payment", ComparableValidator(min = 1L, max = 3000000000000000L))
         append("currency", RegexValidator("\\b[A-Z]{3}\\b"))
         append("date", DateValidator())
-        append("clientId", ComparableValidator(min = 1))
         append("loanId", RegexValidator("\\d*[1-9]\\d*"))
     }
 }
