@@ -4,6 +4,7 @@ import com.apmath.loans.application.v1.actions.v1Create
 import com.apmath.loans.application.v1.actions.v1Info
 import com.apmath.loans.application.v1.actions.v1ListLoans
 import com.apmath.loans.application.v1.actions.v1ListPayments
+import com.apmath.loans.application.v1.actions.v1Payment
 import com.apmath.loans.application.v1.exceptions.ApiException
 import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
 import com.apmath.loans.domain.services.LoanServiceInterface
@@ -42,6 +43,11 @@ private fun Routing.v1Info() {
             val parameters = call.parameters
             val headers = call.request.headers
             call.v1ListPayments(paymentService, parameters["id"]!!, headers["clientId"])
+        }
+        post("{id}/payment"){
+            val parameters = call.parameters
+            val headers = call.request.headers
+            call.v1Payment(paymentService, parameters["id"]!!, headers["clientId"])
         }
     }
 }
