@@ -4,8 +4,10 @@ import com.apmath.loans.domain.data.Type
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.models.mappers.getFirstCalculationsPayment
 import com.apmath.loans.domain.models.mappers.getNextCalculationsPayment
+import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
 import com.apmath.loans.domain.models.payments.PaymentInterface
 import com.apmath.loans.domain.repositories.RepositoryInterface
+import com.apmath.loans.infrastructure.models.payments.PaymentFromCalculation
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import java.time.LocalDate
@@ -14,9 +16,9 @@ class PaymentService(
     private val calculationsFetcher: CalculationsFetcherInterface,
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
-    override suspend fun add(payment: PaymentInterface): LocalDate {
+    override suspend fun add(payment: PaymentInterface, loanId: Int, clientId: Int) : LocalDate {
 
-        val loan = repository.get(payment.loanId)
+        val loan = repository.get(loanId)
 
 
         val asyncPayment = GlobalScope.async {
@@ -39,7 +41,7 @@ class PaymentService(
 
         when {
 
-            loan.clientId != payment.clientId -> throw Exception()
+            loan.clientId != clientId -> throw Exception()
 
             loan.completed -> throw Exception()
 
@@ -62,7 +64,7 @@ class PaymentService(
     override suspend fun get(loanIdHeader: Int?, loanId: Int?): Array<PaymentFromCalculationInterface> {
         // for manual testing
         val payment = PaymentFromCalculation(
-            "date",
+            LocalDate.now(),
             1,
             2,
             3,
