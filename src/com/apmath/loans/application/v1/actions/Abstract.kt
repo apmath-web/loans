@@ -25,10 +25,7 @@ fun isService(request: ApplicationRequest): Boolean {
     val serviceHeaderKey = "service"
 
     if (request.headers.contains(serviceHeaderKey)) {
-        return when (request.headers[serviceHeaderKey]) {
-            Host.APPLICATIONS.value, Host.CALCULATIONS.value, Host.CLIENTS.value -> true
-            else -> false
-        }
+        return request.headers[serviceHeaderKey]!!.toBoolean()
     }
 
     return false
