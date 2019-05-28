@@ -1,12 +1,11 @@
 package com.apmath.loans.application.v1.actions
 
+import com.apmath.loans.application.v1.exceptions.BadRequestException
 import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
 import com.apmath.loans.application.v1.models.incoming.Payment
 import com.apmath.loans.application.v1.models.incoming.toPaymentDomain
 import com.apmath.loans.application.v1.validators.PaymentBuilder
 import com.apmath.loans.domain.exceptions.AlreadyPayException
-import com.apmath.loans.domain.exceptions.ForbiddenAccessException
-import com.apmath.loans.domain.exceptions.NoClientException
 import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.services.PaymentServiceInterface
 import com.apmath.validation.simple.Message
@@ -55,7 +54,7 @@ suspend fun ApplicationCall.v1Payment(paymentService: PaymentServiceInterface, l
     val date =
         try {
 
-            paymentService.add(paymentDomain)
+            paymentService.add(paymentDomain, loanId, clientId)
 
         } catch (e: AlreadyPayException) {
             throw BadRequestException("Loan already payed")
