@@ -5,6 +5,6 @@ import com.apmath.loans.domain.data.Money
 
 interface ApplicationDetailsInterface {
     val status: Status
-    val interest: Int
+    val interest: Float
     val term: Int
 }

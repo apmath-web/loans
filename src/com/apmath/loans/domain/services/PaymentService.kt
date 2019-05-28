@@ -20,7 +20,6 @@ class PaymentService(
 
         val loan = repository.get(loanId)
 
-
         val asyncPayment = GlobalScope.async {
             val isFirstPay = loan.getPayments().isEmpty()
 
