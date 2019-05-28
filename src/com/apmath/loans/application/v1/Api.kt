@@ -48,6 +48,11 @@ private fun Routing.v1Info() {
         get {
             call.v1ListLoans(loanService)
         }
+        post("{id}/payment"){
+            val parameters = call.parameters
+            val headers = call.request.headers
+            call.v1Payment(paymentService, parameters["id"]!!)
+        }
         get("{id}/payments") {
             val parameters = call.parameters
             val headers = call.request.headers
