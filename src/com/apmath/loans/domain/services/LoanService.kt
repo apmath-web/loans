@@ -8,6 +8,10 @@ import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
 import com.apmath.loans.domain.models.loans.*
+import com.apmath.loans.domain.models.loans.LoanCreationDataInterface
+import com.apmath.loans.domain.models.loans.LoanInterface
+import com.apmath.loans.domain.models.loans.toLoan
+import com.apmath.loans.domain.models.loans.toLoanInitialization
 import com.apmath.loans.domain.repositories.RepositoryInterface
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.GlobalScope

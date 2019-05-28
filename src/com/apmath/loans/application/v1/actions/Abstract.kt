@@ -2,6 +2,7 @@ package com.apmath.loans.application.v1.actions
 
 import com.apmath.loans.application.v1.exceptions.BadRequestException
 import com.apmath.loans.infrastructure.fetchers.Host
+import io.ktor.application.ApplicationCall
 import io.ktor.request.ApplicationRequest
 
 fun getUserId(request: ApplicationRequest): Int? {
@@ -31,6 +32,17 @@ fun isService(request: ApplicationRequest): Boolean {
     }
 
     return false
+}
+
+fun ApplicationCall.getClientAttributeId(): String? {
+
+    val userHeaderKey = "client"
+
+    if (parameters.contains(userHeaderKey)) {
+        return parameters[userHeaderKey]
+    }
+
+    return null
 }
 
 // TODO validate via validator
