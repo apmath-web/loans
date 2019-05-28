@@ -13,6 +13,8 @@ import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.services.LoanServiceInterface
 import com.apmath.validation.simple.RequiredValidator
 import io.ktor.application.ApplicationCall
+import io.ktor.client.features.BadResponseStatusException
+import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
 import io.ktor.response.respond
 
@@ -45,6 +47,12 @@ suspend fun ApplicationCall.v1Create(loanService: LoanServiceInterface) {
             throw BadRequestException("Wrong client")
         } catch (e: WrongAmountException) {
             throw BadRequestException("Loan's amount must be bigger than ${e.min} and less than ${e.max}")
+        } catch (e: BadResponseStatusException) {
+            when(e.statusCode) {
+                HttpStatusCode.BadRequest   -> throw BadRequestException(e.localizedMessage)
+                HttpStatusCode.NotFound     -> throw NotFoundException(e.localizedMessage)
+                else                        -> throw e
+            }
         }
 
     respond(mapOf("loanId" to loanId))
