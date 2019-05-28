@@ -1,8 +1,7 @@
 package com.apmath.loans.application.v1.actions
 
+import com.apmath.loans.application.v1.exceptions.BadRequestException
 import com.apmath.loans.infrastructure.fetchers.Host
-import com.apmath.validation.simple.Message
-import io.ktor.response.respond
 import io.ktor.request.ApplicationRequest
 
 fun getUserId(request: ApplicationRequest): Int? {
@@ -26,26 +25,33 @@ fun isService(request: ApplicationRequest): Boolean {
 
     if (request.headers.contains(serviceHeaderKey)) {
         return when (request.headers[serviceHeaderKey]) {
-            Host.APPLICATIONS.value, Host.CALCULATIONS.value, Host.CLIENTS.value    -> true
-            else                                                                    -> false
+            Host.APPLICATIONS.value, Host.CALCULATIONS.value, Host.CLIENTS.value -> true
+            else -> false
         }
     }
 
     return false
 }
 
-//TODO: redo with suitable integer validator
-fun getAndValidateId(parameterId: String?): Int? {
+// TODO validate via validator
+fun getAndValidateClientId(clientIdParam: String?): Int? {
 
-    if (parameterId == null) {
+    if (clientIdParam == null) {
         return null
     }
+    try {
+        return clientIdParam.toInt()
+    } catch (e: NumberFormatException) {
+        throw BadRequestException("ClientId parameter must be numeric")
+    }
+}
+
+// TODO validate via validator
+fun getAndValidateLoanId(loanIdParam: String): Int {
 
     try {
-        return parameterId.toInt()
+        return loanIdParam.toInt()
     } catch (e: NumberFormatException) {
-
+        throw BadRequestException("LoanId parameter must be numeric")
     }
-
-    return null
 }
