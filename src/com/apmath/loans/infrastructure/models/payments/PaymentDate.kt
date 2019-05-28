@@ -5,6 +5,6 @@ import com.apmath.loans.domain.models.payments.PaymentDateInterface
 import java.time.LocalDate
 
 data class PaymentDate(
-    override val date: LocalDate,
+    override val date: String,
     override val amount: Money
 ) : PaymentDateInterface

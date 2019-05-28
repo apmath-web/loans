@@ -8,6 +8,7 @@ import com.apmath.loans.infrastructure.models.NextCalculationsPayment
 import com.apmath.loans.infrastructure.models.loans.LoanForCalculations
 import com.apmath.loans.infrastructure.models.payments.PaymentDate
 import com.apmath.loans.infrastructure.models.payments.PaymentLast
+import java.time.format.DateTimeFormatter
 
 fun getFirstCalculationsPayment(
     payment: PaymentInterface,
@@ -25,7 +26,7 @@ fun getFirstCalculationsPayment(
     )
 
     val paymentDate = PaymentDate(
-        payment.date,
+        payment.date.format(DateTimeFormatter.ISO_DATE),
         payment.payment
     )
 
@@ -39,7 +40,7 @@ fun getNextCalculationsPayment(
     lastPayment: PaymentFromCalculationInterface
 ): NextCalculationsPaymentInterface {
 
-    val loan = LoanForCalculations(
+    val loanForCalc = LoanForCalculations(
         null,
         null,
         loan.interest,
@@ -49,17 +50,17 @@ fun getNextCalculationsPayment(
         loan.regularPaymentAmount
     )
 
-    val payment = PaymentDate(
-        payment.date,
+    val paymentForCalc = PaymentDate(
+        payment.date.format(DateTimeFormatter.ISO_DATE),
         payment.payment
     )
 
-    val lastPayment = PaymentLast(
-        lastPayment.date,
+    val lastPaymentForCalc = PaymentLast(
+        lastPayment.date.format(DateTimeFormatter.ISO_DATE),
         lastPayment.amount,
         lastPayment.remainCreditBody
     )
 
-    return NextCalculationsPayment(loan, payment, lastPayment)
+    return NextCalculationsPayment(loanForCalc, paymentForCalc, lastPaymentForCalc)
 
 }
