@@ -32,7 +32,7 @@ fun LoanCreationDataInterface.toLoan(interest: Float, term: Int, loanDetails: Lo
 fun LoanCreationDataInterface.toLoanInitialization(application: ApplicationDetailsInterface) = LoanInitialization(
     amount = amount,
     term = term,
-    interest = application.interest,
+    interest = application.interest.toInt(),
     date = date
 )
 

@@ -5,6 +5,6 @@ import com.apmath.loans.domain.data.Money
 interface LoanInitializationInterface {
     val amount: Money
     val term: Int
-    val interest: Float
+    val interest: Int
     val date: String
 }
