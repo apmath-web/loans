@@ -1,15 +1,13 @@
 package com.apmath.loans.domain.services
 
 import com.apmath.loans.domain.data.Status
-import com.apmath.loans.domain.exceptions.*
+import com.apmath.loans.domain.exceptions.ForbiddenAccessException
+import com.apmath.loans.domain.exceptions.NoClientException
+import com.apmath.loans.domain.exceptions.NotApprovedException
 import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
-import com.apmath.loans.domain.models.MixedIdInterface
-import com.apmath.loans.domain.models.loans.LoanCreationDataInterface
-import com.apmath.loans.domain.models.loans.LoanInterface
-import com.apmath.loans.domain.models.loans.toLoan
-import com.apmath.loans.domain.models.loans.toLoanInitialization
+import com.apmath.loans.domain.models.loans.*
 import com.apmath.loans.domain.repositories.RepositoryInterface
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.GlobalScope
@@ -27,7 +25,8 @@ class LoanService(
         val applicationId = loan.applicationId
 
         val applicationResult = GlobalScope.async {
-            applicationsFetcher.getApplication(clientId, applicationId)
+            val application = loan.toApplication()
+            applicationsFetcher.getApplication(clientId, applicationId, application)
         }
         val clientResult = GlobalScope.async {
             clientsFetcher.isExists(clientId)
@@ -52,8 +51,9 @@ class LoanService(
 
             else -> {
                 val interest = application.interest
+                val term = application.term
 
-                val loanEmployee = loan.toLoan(interest, loanDetails)
+                val loanEmployee = loan.toLoan(interest, term, loanDetails)
 
                 repository.store(loanEmployee)
                 return loanEmployee.id!!
