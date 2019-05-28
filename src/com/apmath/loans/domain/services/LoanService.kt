@@ -1,5 +1,8 @@
 package com.apmath.loans.domain.services
 
+import com.apmath.loans.application.v1.exceptions.BadRequestException
+import com.apmath.loans.application.v1.exceptions.BadServiceResponse
+import com.apmath.loans.application.v1.exceptions.NotFoundException
 import com.apmath.loans.domain.data.Status
 import com.apmath.loans.domain.exceptions.ForbiddenAccessException
 import com.apmath.loans.domain.exceptions.NoClientException
@@ -9,6 +12,8 @@ import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
 import com.apmath.loans.domain.models.loans.*
 import com.apmath.loans.domain.repositories.RepositoryInterface
+import io.ktor.client.features.BadResponseStatusException
+import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -36,28 +41,32 @@ class LoanService(
             calculationsFetcher.initialization(loanInit)
         }
 
-        val application = applicationResult.await()
-        val loanDetails = calculationResult.await()
-        val client = clientResult.await()
+        try {
+            val application = applicationResult.await()
+            val loanDetails = calculationResult.await()
+            val client = clientResult.await()
 
-        when {
-            //client does not exists
-            !client
-            -> throw NoClientException()
+            when {
+                //client does not exists
+                !client
+                -> throw NoClientException()
 
-            //application status is not approved
-            application.status != Status.APPROVED
-            -> throw NotApprovedException(application.status)
+                //application status is not approved
+                application.status != Status.APPROVED
+                -> throw NotApprovedException(application.status)
 
-            else -> {
-                val interest = application.interest
-                val term = application.term
+                else -> {
+                    val interest = application.interest
+                    val term = application.term
 
-                val loanEmployee = loan.toLoan(interest, term, loanDetails)
+                    val loanEmployee = loan.toLoan(interest, term, loanDetails)
 
-                repository.store(loanEmployee)
-                return loanEmployee.id!!
+                    repository.store(loanEmployee)
+                    return loanEmployee.id!!
+                }
             }
+        } catch (e: BadResponseStatusException) {
+            throw BadServiceResponse(e.statusCode.value, e.localizedMessage)
         }
     }
 
@@ -68,16 +77,16 @@ class LoanService(
 
         when {
             //if it's service
-            isService               -> results.addAll(loans.filter { it.clientId == clientId })
+            isService -> results.addAll(loans.filter { it.clientId == clientId })
             //if it's client
-            clientIdHeader != null  -> {
+            clientIdHeader != null -> {
                 if (clientIdHeader != clientId) {
                     throw ForbiddenAccessException()
                 }
                 results.addAll(loans.filter { it.clientId == clientId })
             }
             //if trying to get client without header
-            clientId != null        -> throw ForbiddenAccessException()
+            clientId != null -> throw ForbiddenAccessException()
         }
 
         return results

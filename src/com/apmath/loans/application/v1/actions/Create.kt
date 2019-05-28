@@ -2,6 +2,7 @@ package com.apmath.loans.application.v1.actions
 
 import com.apmath.loans.application.v1.exceptions.BadRequestException
 import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
+import com.apmath.loans.application.v1.exceptions.BadServiceResponse
 import com.apmath.loans.application.v1.exceptions.NotFoundException
 import com.apmath.loans.application.v1.models.incoming.Loan
 import com.apmath.loans.application.v1.models.incoming.toLoanClient
@@ -47,11 +48,11 @@ suspend fun ApplicationCall.v1Create(loanService: LoanServiceInterface) {
             throw BadRequestException("Wrong client")
         } catch (e: WrongAmountException) {
             throw BadRequestException("Loan's amount must be bigger than ${e.min} and less than ${e.max}")
-        } catch (e: BadResponseStatusException) {
-            when(e.statusCode) {
-                HttpStatusCode.BadRequest   -> throw BadRequestException(e.localizedMessage)
-                HttpStatusCode.NotFound     -> throw NotFoundException(e.localizedMessage)
-                else                        -> throw e
+        } catch (e: BadServiceResponse) {
+            when(e.code) {
+                400    -> throw BadRequestException(e.localizedMessage)
+                404    -> throw NotFoundException(e.localizedMessage)
+                else   -> throw e
             }
         }
 
