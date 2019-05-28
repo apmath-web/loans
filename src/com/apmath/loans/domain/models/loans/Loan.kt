@@ -12,12 +12,12 @@ class Loan(
 
     override val amount: Money,
     override val term: Int,
-    override val interest: Int,
+    override val interest: Float,
     override val currency: Currency,
     override val date: String,
 
     override val rounding: Int,
-    override val regularPaymentAmount: Money,
+    override var regularPaymentAmount: Money,
     override val remainingTerm: Int
 ) : LoanInterface {
     override var id: Int? = null
@@ -30,7 +30,6 @@ class Loan(
         }
 
     override var completed: Boolean = false
-        private set
 
     private val payments: MutableList<ResponsePaymentInterface> = arrayListOf()
 

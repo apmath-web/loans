@@ -1,11 +1,13 @@
 package com.apmath.loans.domain.services
 
 import com.apmath.loans.domain.data.Status
-import com.apmath.loans.domain.exceptions.*
+import com.apmath.loans.domain.exceptions.ForbiddenAccessException
+import com.apmath.loans.domain.exceptions.NoClientException
+import com.apmath.loans.domain.exceptions.NotApprovedException
 import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.fetchers.ClientsFetcherInterface
-import com.apmath.loans.domain.models.MixedIdInterface
+import com.apmath.loans.domain.models.loans.*
 import com.apmath.loans.domain.models.loans.LoanCreationDataInterface
 import com.apmath.loans.domain.models.loans.LoanInterface
 import com.apmath.loans.domain.models.loans.toLoan
@@ -27,7 +29,8 @@ class LoanService(
         val applicationId = loan.applicationId
 
         val applicationResult = GlobalScope.async {
-            applicationsFetcher.getApplication(applicationId)
+            val application = loan.toApplication()
+            applicationsFetcher.getApplication(clientId, applicationId, application)
         }
         val clientResult = GlobalScope.async {
             clientsFetcher.isExists(clientId)
@@ -50,18 +53,11 @@ class LoanService(
             application.status != Status.APPROVED
             -> throw NotApprovedException(application.status)
 
-            //application's client is not our client
-            application.clientId != clientId
-            -> throw WrongClientId()
-
-            //amount must be in bounds
-            loan.amount > application.maxAmount || loan.amount < application.minAmount
-            -> throw WrongAmountException(application.minAmount, application.maxAmount)
-
             else -> {
                 val interest = application.interest
+                val term = application.term
 
-                val loanEmployee = loan.toLoan(interest, loanDetails)
+                val loanEmployee = loan.toLoan(interest, term, loanDetails)
 
                 repository.store(loanEmployee)
                 return loanEmployee.id!!
