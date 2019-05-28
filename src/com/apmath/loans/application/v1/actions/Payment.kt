@@ -12,26 +12,17 @@ import io.ktor.application.ApplicationCall
 import io.ktor.request.receive
 import io.ktor.response.respond
 
-suspend fun ApplicationCall.v1Payment(paymentService: PaymentServiceInterface, loanIdKey: String) {
+suspend fun ApplicationCall.v1Payment(
+    paymentService: PaymentServiceInterface,
+    loanIdKey: String,
+    clientIdParam: String?
+) {
     val payment = receive<Payment>()
     payment.loanId = loanIdKey
 
-    val clientId = try {
-        getClientAttributeId()!!.toInt()
-    } catch (e: NumberFormatException) {
-        respond(Message("Client id must be between 1 and ${Int.MAX_VALUE}"))
-        return
-    } catch (e: KotlinNullPointerException) {
-        respond(Message("Missing client id"))
-        return
-    }
+    val clientId = getAndValidateClientId(clientIdParam)
 
-    val loanId = try {
-        loanIdKey.toInt()
-    } catch (e: NumberFormatException) {
-        respond(Message("Loan id must be between 1 and ${Int.MAX_VALUE}"))
-        return
-    }
+    val loanId = getAndValidateLoanId(loanIdKey)
 
     val validator = PaymentBuilder()
         .prepend("payment", RequiredValidator())
