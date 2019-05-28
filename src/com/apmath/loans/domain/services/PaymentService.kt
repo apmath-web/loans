@@ -12,7 +12,7 @@ class PaymentService(
     private val calculationsFetcher: CalculationsFetcherInterface,
     private val repository: RepositoryInterface
 ) : PaymentServiceInterface {
-    override suspend fun get(loanIdHeader: Int?, loanId: Int?): Array<PaymentFromCalculationInterface> {
+    override suspend fun get(loanId: Int, clientId: Int?): Array<PaymentFromCalculationInterface> {
         // for manual testing
         val payment = PaymentFromCalculation(
             "date",

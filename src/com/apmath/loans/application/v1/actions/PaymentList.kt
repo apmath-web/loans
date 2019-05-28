@@ -18,8 +18,7 @@ suspend fun ApplicationCall.v1ListPayments(
 
     val payments =
         try {
-            // TODO: why loanId is NULLable here?
-            paymentService.get(loanId, null)
+            paymentService.get(loanId, userId)
         } catch (e: LoanNotFoundException) {
             NotFoundException("Loan not found")
         }
