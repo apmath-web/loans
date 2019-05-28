@@ -2,6 +2,8 @@ package com.apmath.loans.application.v1
 
 import com.apmath.loans.application.v1.actions.v1Create
 import com.apmath.loans.application.v1.actions.v1Info
+import com.apmath.loans.application.v1.actions.v1ListLoans
+import com.apmath.loans.application.v1.actions.v1ListPayments
 import com.apmath.loans.application.v1.actions.v1Payment
 import com.apmath.loans.application.v1.exceptions.ApiException
 import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
@@ -25,7 +27,6 @@ internal fun Routing.v1() {
 
 private fun Routing.v1Info() {
     val loanService: LoanServiceInterface by inject()
-
     val paymentService: PaymentServiceInterface by inject()
 
     route("v1") {
@@ -34,6 +35,14 @@ private fun Routing.v1Info() {
         }
         post {
             call.v1Create(loanService)
+        }
+        get {
+            call.v1ListLoans(loanService)
+        }
+        get("{id}/payments") {
+            val parameters = call.parameters
+            val headers = call.request.headers
+            call.v1ListPayments(paymentService, parameters["id"]!!, headers["clientId"])
         }
         post("{id}/payment"){
             val parameters = call.parameters
@@ -58,7 +67,7 @@ suspend fun ApplicationCall.respondApiException(e: ApiException) {
                 mapOf("message" to e.message!!, "description" to description)
             )
         }
-        e.message != null -> respond(e.code,  mapOf("message" to e.message!!))
+        e.message != null -> respond(e.code, mapOf("message" to e.message!!))
         else -> respond(e.code, mapOf("message" to e.javaClass))
     }
 }
