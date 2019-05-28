@@ -25,7 +25,7 @@ class PaymentService(
         )
         return arrayOf(payment)
     }
-    override suspend fun add(payment: PaymentInterface, loanId: Int, clientId: Int): LocalDate {
+    override suspend fun add(payment: PaymentInterface, loanId: Int, clientId: Int?): LocalDate {
         //TODO("not implemented")
         return LocalDate.now()
     }

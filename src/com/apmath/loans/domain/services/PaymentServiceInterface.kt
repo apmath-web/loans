@@ -6,5 +6,5 @@ import java.time.LocalDate
 
 interface PaymentServiceInterface {
     suspend fun get(loanIdHeader: Int?, loanId: Int?) : Array<PaymentFromCalculationInterface>
-    suspend fun add(payment: PaymentInterface, loanId: Int, clientId: Int) : LocalDate
+    suspend fun add(payment: PaymentInterface, loanId: Int, clientId: Int?) : LocalDate
 }
