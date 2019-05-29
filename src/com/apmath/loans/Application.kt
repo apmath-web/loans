@@ -56,6 +56,9 @@ fun Application.module(testing: Boolean = false) {
                         = LocalDate.parse(input.nextString(),format)
 
             })
+            if (!testing) {
+                setPrettyPrinting()
+            }
         }
     }
 
