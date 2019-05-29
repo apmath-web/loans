@@ -1,11 +1,6 @@
 package com.apmath.loans.application.v1
 
-import com.apmath.loans.application.v1.actions.v1Create
-import com.apmath.loans.application.v1.actions.v1Info
-import com.apmath.loans.application.v1.actions.v1Payment
-import com.apmath.loans.application.v1.actions.v1ListLoans
-import com.apmath.loans.application.v1.actions.v1ListPayments
-import com.apmath.loans.application.v1.actions.v1Payment
+import com.apmath.loans.application.v1.actions.*
 import com.apmath.loans.application.v1.exceptions.ApiException
 import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
 import com.apmath.loans.domain.fetchers.ApplicationsFetcherInterface
@@ -22,6 +17,7 @@ import io.ktor.routing.get
 import io.ktor.routing.post
 import io.ktor.routing.route
 import org.koin.ktor.ext.inject
+import kotlin.collections.set
 
 internal fun Routing.v1() {
 
@@ -54,7 +50,7 @@ private fun Routing.v1Info() {
             val headers = call.request.headers
             call.v1ListPayments(paymentService, parameters["id"]!!, headers["clientId"])
         }
-        post("{id}/payment"){
+        post("{id}/payment") {
             val parameters = call.parameters
             call.v1Payment(paymentService, parameters["id"]!!)
         }

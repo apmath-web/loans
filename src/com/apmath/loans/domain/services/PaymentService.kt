@@ -13,6 +13,7 @@ import com.apmath.loans.infrastructure.models.payments.PaymentFromCalculation
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class PaymentService(
     private val calculationsFetcher: CalculationsFetcherInterface,
@@ -55,7 +56,7 @@ class PaymentService(
                     loan.completed = true
                 }
 
-                return paymentFromCalculation.date
+                return LocalDate.parse(paymentFromCalculation.date, DateTimeFormatter.ISO_DATE)
             }
 
         }
@@ -64,7 +65,7 @@ class PaymentService(
     override suspend fun get(loanIdHeader: Int?, loanId: Int?): Array<PaymentFromCalculationInterface> {
         // for manual testing
         val payment = PaymentFromCalculation(
-            LocalDate.now(),
+            "2019-01-02",
             1,
             2,
             3,

@@ -5,7 +5,7 @@ import com.apmath.loans.domain.data.Type
 import java.time.LocalDate
 
 interface PaymentFromCalculationInterface {
-    val date: LocalDate
+    val date: String
     val amount: Money
     val percent: Int
     val body: Money
