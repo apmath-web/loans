@@ -40,8 +40,9 @@ fun Application.module(testing: Boolean = false) {
 
     install(ContentNegotiation) {
         gson {
-            if (!testing)
+            if (!testing) {
                 setPrettyPrinting()
+            }
         }
     }
 
