@@ -17,6 +17,7 @@ import com.apmath.validation.simple.NullableValidator
 import com.apmath.validation.simple.RequiredValidator
 import io.ktor.application.ApplicationCall
 import io.ktor.client.features.BadResponseStatusException
+import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
 import io.ktor.response.respond
 
@@ -58,14 +59,11 @@ suspend fun ApplicationCall.v1Payment(
 
         } catch (e:BadResponseStatusException) {
 
-            when{
-                e.statusCode.value == 400
-                -> throw BadRequestException(" Bad time")
-
-                e.statusCode.value == 404
-                -> throw BadRequestException("Not found")
+            when(e.statusCode){
+                HttpStatusCode.BadRequest   -> throw BadRequestException(e.localizedMessage)
+                HttpStatusCode.NotFound     -> throw NotFoundException(e.localizedMessage)
+                else                        -> throw e
             }
-            return
         }
 
     respond(mapOf("paymentExecutedAt" to date))
