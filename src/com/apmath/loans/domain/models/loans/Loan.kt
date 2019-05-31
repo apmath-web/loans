@@ -10,7 +10,7 @@ class Loan(
     override val clientId: Int,
     override val applicationId: Int,
 
-    override val amount: Money,
+    override var amount: Money,
     override val term: Int,
     override val interest: Float,
     override val currency: Currency,
@@ -18,7 +18,7 @@ class Loan(
 
     override val rounding: Int,
     override var regularPaymentAmount: Money,
-    override val remainingTerm: Int
+    override var remainingTerm: Int
 ) : LoanInterface {
     override var id: Int? = null
         set(value) {

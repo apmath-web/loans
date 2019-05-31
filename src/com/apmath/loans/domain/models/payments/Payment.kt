@@ -7,7 +7,5 @@ import java.time.LocalDate
 data class Payment(
     override val payment: Money,
     override val currency: Currency,
-    override val date: LocalDate,
-    override val clientId: Int,
-    override val loanId: Int
+    override val date: LocalDate
 ) : PaymentInterface

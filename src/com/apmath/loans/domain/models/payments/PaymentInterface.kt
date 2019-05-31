@@ -8,6 +8,4 @@ interface PaymentInterface {
     val payment: Money
     val currency: Currency
     val date: LocalDate
-    val clientId: Int
-    val loanId: Int
 }

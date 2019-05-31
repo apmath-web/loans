@@ -35,7 +35,7 @@ class PaymentService(
 
     override suspend fun add(payment: PaymentInterface, loanId: Int, clientId: Int?): LocalDate {
 
-        val loan = repository.get(payment.loanId)
+        val loan = repository.get(loanId)
 
         val asyncPayment = GlobalScope.async {
             val isFirstPay = loan.getPayments().isEmpty()
@@ -57,7 +57,7 @@ class PaymentService(
 
         when {
 
-            loan.clientId != payment.clientId -> throw WrongClientId()
+            loan.clientId != clientId -> throw WrongClientId()
 
             loan.completed -> throw AlreadyPayException()
 

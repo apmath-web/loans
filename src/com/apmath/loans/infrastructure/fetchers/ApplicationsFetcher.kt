@@ -15,8 +15,5 @@ class ApplicationsFetcher(
     ): ApplicationDetails {
         return post("/v1/$clientId/$applicationId", application)
     }
-        override suspend fun getApplication(applicationId: Int): Application {
-            return get("/v1/$applicationId")
 
-    }
 }
