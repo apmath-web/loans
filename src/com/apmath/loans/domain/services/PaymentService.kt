@@ -43,17 +43,20 @@ class PaymentService(
             if (isFirstPay) {
                 val calculationsPayment
                         = getFirstCalculationsPayment(payment,loan)
+                println(calculationsPayment)
                 calculationsFetcher.nextNewPayment(calculationsPayment)
             } else {
                 val lastPayment = loan.getPayments().last()
 
                 val calculationsPayment
                         = getNextCalculationsPayment(payment, loan, lastPayment)
+                println(calculationsPayment)
                 calculationsFetcher.nextPayment(calculationsPayment)
             }
         }
 
         val resultPayment = asyncPayment.await()
+        println(resultPayment)
 
         when {
 
