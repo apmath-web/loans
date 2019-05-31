@@ -6,7 +6,7 @@ import com.apmath.loans.domain.data.Money
 data class LoanForCalculations(
     override val amount: Money?,
     override val term: Int?,
-    override val interest: Float,
+    override val interest: Int,
     override val date: String,
     override val remainingTerm: Int?,
     override val rounding: Int,

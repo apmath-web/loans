@@ -17,7 +17,7 @@ fun getFirstCalculationsPayment(
     val loan = LoanForCalculations(
         loan.amount,
         loan.term,
-        loan.interest,
+        loan.interest.toInt(),
         loan.date,
         null,
         loan.rounding,
@@ -42,7 +42,7 @@ fun getNextCalculationsPayment(
     val loan = LoanForCalculations(
         null,
         null,
-        loan.interest,
+        loan.interest.toInt(),
         loan.date,
         loan.remainingTerm,
         loan.rounding,
