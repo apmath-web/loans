@@ -62,8 +62,12 @@ class PaymentService(
             loan.completed -> throw AlreadyPayException()
 
             else -> {
+
                 val loanDetails = resultPayment.loan
                 val paymentFromCalculation = resultPayment.payment
+
+                loan.amount = loan.amount - payment.payment
+                loan.remainingTerm = loan.remainingTerm - 1
 
                 loan.writeOf(paymentFromCalculation)
                 loan.regularPaymentAmount = loanDetails.regularPaymentAmount
