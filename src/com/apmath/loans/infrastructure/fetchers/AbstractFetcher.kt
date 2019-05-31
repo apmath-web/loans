@@ -1,5 +1,8 @@
 package com.apmath.loans.infrastructure.fetchers
 
+import com.google.gson.TypeAdapter
+import com.google.gson.stream.JsonReader
+import com.google.gson.stream.JsonWriter
 import io.ktor.client.HttpClient
 import io.ktor.client.call.call
 import io.ktor.client.engine.apache.Apache
@@ -11,6 +14,8 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpMethod
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 //TODO: temporary implementation
 open class AbstractFetcher(val host: String, val port: Int) {
@@ -67,6 +72,17 @@ open class AbstractFetcher(val host: String, val port: Int) {
                 serializer = GsonSerializer {
                     serializeNulls()
                     disableHtmlEscaping()
+                    registerTypeAdapter(LocalDate::class.java, object: TypeAdapter<LocalDate>() {
+                        val format = DateTimeFormatter.ISO_DATE
+
+                        override fun write(out: JsonWriter, value: LocalDate) {
+                            out.value(format.format(value))
+                        }
+
+                        override fun read(input: JsonReader): LocalDate
+                                = LocalDate.parse(input.nextString(),format)
+
+                    })
                 }
             }
         }
