@@ -60,6 +60,7 @@ suspend fun ApplicationCall.v1Payment(
             throw BadRequestException("Wrong client")
 
         } catch (e:BadResponseStatusException) {
+            println("Check "+e.response.content.readUTF8Line())
             respond(e.response.content.readUTF8Line()!!)
         }
 
