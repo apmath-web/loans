@@ -62,21 +62,24 @@ class PaymentService(
             loan.completed -> throw AlreadyPayException()
 
             else -> {
+//
+//                val loanDetails = resultPayment.loan
+//                val paymentFromCalculation = resultPayment.payment
+//
+//                loan.amount -= payment.payment
+//                loan.remainingTerm--
+//                loan.regularPaymentAmount = resultPayment.loan.regularPaymentAmount
 
-                val loanDetails = resultPayment.loan
-                val paymentFromCalculation = resultPayment.payment
+                //loan.writeOf(paymentFromCalculation)
+//                loan.regularPaymentAmount = loanDetails.regularPaymentAmount
+//
+//                if (loanDetails.remainingTerm == 0) {
+//                    loan.completed = true
+//                }
 
-                loan.amount = loan.amount - payment.payment
-                loan.remainingTerm = loan.remainingTerm - 1
+                return loan.writeOf(resultPayment)
 
-                loan.writeOf(paymentFromCalculation)
-                loan.regularPaymentAmount = loanDetails.regularPaymentAmount
-
-                if (loanDetails.remainingTerm == 0) {
-                    loan.completed = true
-                }
-
-                return paymentFromCalculation.date
+                //return paymentFromCalculation.date
             }
 
         }

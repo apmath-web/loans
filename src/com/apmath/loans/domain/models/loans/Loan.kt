@@ -4,6 +4,8 @@ import com.apmath.loans.domain.data.Currency
 import com.apmath.loans.domain.data.Money
 import com.apmath.loans.domain.data.Type
 import com.apmath.loans.domain.exceptions.runtime.ChangeIdentifiedCreditIdException
+import com.apmath.loans.domain.models.ResultCalculationsPaymentInterface
+import java.time.LocalDate
 import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface as ResponsePaymentInterface
 
 class Loan(
@@ -44,7 +46,24 @@ class Loan(
         }
     }
 
-    override fun writeOf(payment: ResponsePaymentInterface) {
+//    override fun writeOf(payment: ResponsePaymentInterface) {
+//        payments.add(payment)
+//    }
+
+    override fun writeOf(resultPayment: ResultCalculationsPaymentInterface) : LocalDate {
+        val loanDetails = resultPayment.loan
+        val payment = resultPayment.payment
+
+        amount -= payment.body
+        remainingTerm--
+        regularPaymentAmount = loanDetails.regularPaymentAmount
+        remainingTerm = loanDetails.remainingTerm
+
         payments.add(payment)
+
+        if (loanDetails.remainingTerm == 0) {
+            completed = true
+        }
+        return payment.date
     }
 }
