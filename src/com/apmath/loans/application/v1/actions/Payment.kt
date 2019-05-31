@@ -59,9 +59,13 @@ suspend fun ApplicationCall.v1Payment(
         } catch (e: WrongClientId) {
             throw BadRequestException("Wrong client")
 
-        } catch (e:BadResponseStatusException) {
-            println("Check "+e.response.content.readUTF8Line())
-            respond(e.response.content.readUTF8Line()!!)
+        } catch (e: BadResponseStatusException) {
+            println("Check " + e.response.content.readUTF8Line())
+            println("is null " + (e.response.content.readUTF8Line() == null))
+            val message = e.response.content.readUTF8Line()?:"Something wrong"
+            println("Gson check " +Gson().toJson(e.response.content.readUTF8Line()))
+            println(message)
+            respond(message)
         }
 
     respond(mapOf("paymentExecutedAt" to date))
