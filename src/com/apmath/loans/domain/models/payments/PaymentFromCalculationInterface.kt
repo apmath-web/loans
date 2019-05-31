@@ -10,6 +10,6 @@ interface PaymentFromCalculationInterface {
     val percent: Int
     val body: Money
     val type: Type
-    val remainCreditBody: Money
+    var remainCreditBody: Money
     val fullEarlyRepayment: Money
 }

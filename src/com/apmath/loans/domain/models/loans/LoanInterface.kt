@@ -11,7 +11,7 @@ interface LoanInterface : LoanCreationDataInterface {
     val interest: Float
     val rounding: Int
     var regularPaymentAmount: Money
-    val remainingTerm: Int
+    var remainingTerm: Int
     var completed: Boolean
 
     fun getPayments(type: Type? = null): List<ResponsePaymentInterface>
