@@ -8,7 +8,7 @@ interface LoanInterface : LoanCreationDataInterface {
     //also LoanCreationDataInterface here
     var id: Int?
 
-    val interest: Int
+    val interest: Float
     val rounding: Int
     var regularPaymentAmount: Money
     var remainingTerm: Int
