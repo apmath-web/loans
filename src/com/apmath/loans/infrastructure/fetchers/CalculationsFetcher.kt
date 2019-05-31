@@ -4,6 +4,7 @@ import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.models.NextCalculationsPaymentInterface
 import com.apmath.loans.domain.models.ResultCalculationsPaymentInterface
 import com.apmath.loans.domain.models.loans.LoanInitializationInterface
+import com.apmath.loans.infrastructure.models.ResultCalculationsPayment
 import com.apmath.loans.infrastructure.models.loans.LoanDetails
 
 class CalculationsFetcher(
@@ -14,11 +15,11 @@ class CalculationsFetcher(
         return post("/v1/loan", loan)
     }
 
-    override suspend fun nextNewPayment(paymentData: NextCalculationsPaymentInterface): ResultCalculationsPaymentInterface {
+    override suspend fun nextNewPayment(paymentData: NextCalculationsPaymentInterface): ResultCalculationsPayment {
         return post("/v1/payment", paymentData)
     }
 
-    override suspend fun nextPayment(paymentData: NextCalculationsPaymentInterface): ResultCalculationsPaymentInterface {
+    override suspend fun nextPayment(paymentData: NextCalculationsPaymentInterface): ResultCalculationsPayment {
         return put("/v1/payment", paymentData)
     }
 }
