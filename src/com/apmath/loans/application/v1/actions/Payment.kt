@@ -20,6 +20,7 @@ import io.ktor.client.features.BadResponseStatusException
 import io.ktor.http.HttpStatusCode
 import io.ktor.request.receive
 import io.ktor.response.respond
+import kotlinx.coroutines.io.readUTF8Line
 
 suspend fun ApplicationCall.v1Payment(
     paymentService: PaymentServiceInterface,
@@ -58,7 +59,8 @@ suspend fun ApplicationCall.v1Payment(
             throw BadRequestException("Wrong client")
 
         } catch (e:BadResponseStatusException) {
-
+            println(e.response.content.readUTF8Line())
+            respond(e.response.content.readUTF8Line()!!)
             when(e.statusCode){
                 HttpStatusCode.BadRequest   -> throw BadRequestException(e.localizedMessage)
                 HttpStatusCode.NotFound     -> throw NotFoundException(e.localizedMessage)
