@@ -15,4 +15,4 @@ data class NextCalculationsPayment(
     override val loan: LoanForCalculationsInterface,
     override val payment: PaymentDateInterface,
     override val lastPayment: PaymentLastInterface?
-    ) : NextCalculationsPaymentInterface
+) : NextCalculationsPaymentInterface

@@ -69,16 +69,19 @@ class PaymentService(
 //                loan.amount -= payment.payment
 //                loan.remainingTerm--
 //                loan.regularPaymentAmount = resultPayment.loan.regularPaymentAmount
-
                 //loan.writeOf(paymentFromCalculation)
 //                loan.regularPaymentAmount = loanDetails.regularPaymentAmount
 //
 //                if (loanDetails.remainingTerm == 0) {
 //                    loan.completed = true
 //                }
-
-                return loan.writeOf(resultPayment)
-
+                println(loan)
+                println(resultPayment)
+                val date =  loan.writeOf(resultPayment)
+                println(date)
+                println(loan)
+                println(repository.get(loanId))
+                return date
                 //return paymentFromCalculation.date
             }
 
