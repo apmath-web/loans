@@ -15,6 +15,7 @@ import com.apmath.loans.domain.services.PaymentServiceInterface
 import com.apmath.validation.simple.Message
 import com.apmath.validation.simple.NullableValidator
 import com.apmath.validation.simple.RequiredValidator
+import com.google.gson.Gson
 import io.ktor.application.ApplicationCall
 import io.ktor.client.features.BadResponseStatusException
 import io.ktor.http.HttpStatusCode
@@ -59,13 +60,7 @@ suspend fun ApplicationCall.v1Payment(
             throw BadRequestException("Wrong client")
 
         } catch (e:BadResponseStatusException) {
-            println(e.response.content.readUTF8Line())
             respond(e.response.content.readUTF8Line()!!)
-            when(e.statusCode){
-                HttpStatusCode.BadRequest   -> throw BadRequestException(e.localizedMessage)
-                HttpStatusCode.NotFound     -> throw NotFoundException(e.localizedMessage)
-                else                        -> throw e
-            }
         }
 
     respond(mapOf("paymentExecutedAt" to date))

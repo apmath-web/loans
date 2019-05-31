@@ -34,8 +34,11 @@ class PaymentService(
     }
 
     override suspend fun add(payment: PaymentInterface, loanId: Int, clientId: Int?): LocalDate {
-
         val loan = repository.get(loanId)
+
+        if (loan.getPayments(null).isNotEmpty()) {
+            println("REMAIN CREDIT BODY" + loan.getPayments(null).last().remainCreditBody)
+        }
 
         val asyncPayment = GlobalScope.async {
             val isFirstPay = loan.getPayments().isEmpty()
