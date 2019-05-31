@@ -34,9 +34,6 @@ fun Application.module(testing: Boolean = false) {
         }
     }
 
-    install(DefaultHeaders) {
-    }
-
     install(Koin) {
         slf4jLogger()
         properties(mapOf("config" to environment.config))
