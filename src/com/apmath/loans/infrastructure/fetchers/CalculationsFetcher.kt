@@ -11,4 +11,12 @@ class CalculationsFetcher(
     override suspend fun initialization(loan: LoanInitializationInterface): LoanDetails {
         return post("/v1/loan", loan)
     }
+
+    override suspend fun nextNewPayment(paymentData: NextCalculationsPaymentInterface): ResultCalculationsPayment {
+        return post("/v1/payment", paymentData)
+    }
+
+    override suspend fun nextPayment(paymentData: NextCalculationsPaymentInterface): ResultCalculationsPayment {
+        return put("/v1/payment", paymentData)
+    }
 }
