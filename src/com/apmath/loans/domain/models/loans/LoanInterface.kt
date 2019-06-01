@@ -17,4 +17,6 @@ interface LoanInterface : LoanCreationDataInterface {
     var completed: Boolean
 
     fun getPayments(type: Type? = null): List<ResponsePaymentInterface>
+    fun writeOf(resultPayment: ResultCalculationsPaymentInterface) : LocalDate
+
 }
