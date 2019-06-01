@@ -5,4 +5,6 @@ import com.apmath.loans.domain.models.loans.LoanInitializationInterface
 
 interface CalculationsFetcherInterface {
     suspend fun initialization(loan: LoanInitializationInterface): LoanDetailsInterface
+    suspend fun nextNewPayment(paymentData : NextCalculationsPaymentInterface): ResultCalculationsPaymentInterface
+    suspend fun nextPayment(paymentData : NextCalculationsPaymentInterface): ResultCalculationsPaymentInterface
 }
