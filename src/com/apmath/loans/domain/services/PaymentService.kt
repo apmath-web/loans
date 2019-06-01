@@ -15,7 +15,7 @@ class PaymentService(
     override suspend fun get(loanId: Int, clientId: Int?): Array<PaymentFromCalculationInterface> {
         // for manual testing
         val payment = PaymentFromCalculation(
-            "date",
+            LocalDate.now(),
             1,
             2,
             3,

@@ -10,13 +10,13 @@ data class LoanCreationData(
     override val clientId: Int,
     override val applicationId: Int,
 
-    override val amount: Money,
+    override var amount: Money,
     override val term: Int,
     override val currency: Currency,
     override val date: String
 ) : LoanCreationDataInterface
 
-fun LoanCreationDataInterface.toLoan(interest: Int, term: Int, loanDetails: LoanDetailsInterface) = Loan(
+fun LoanCreationDataInterface.toLoan(interest: Float, term: Int, loanDetails: LoanDetailsInterface) = Loan(
     clientId,
     applicationId,
     amount,
