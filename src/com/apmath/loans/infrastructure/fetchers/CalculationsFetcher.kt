@@ -25,8 +25,8 @@ class CalculationsFetcher(
         return post("/v1/payment", paymentData)
     }
 
-    override suspend fun nextPayment(paymentData: NextCalculationsPaymentInterface): ResultCalculationsPayment {
-
+    override suspend fun nextPayment(payment: PaymentInterface, loan: LoanInterface, lastPayment: PaymentFromCalculationInterface): ResultCalculationsPayment {
+        val paymentData = getNextCalculationsPayment(payment, loan, lastPayment)
         return put("/v1/payment", paymentData)
     }
 

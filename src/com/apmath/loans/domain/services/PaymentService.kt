@@ -67,7 +67,7 @@ class PaymentService(
 
                 val calculationsPayment
                         = getNextCalculationsPayment(payment, loan, lastPayment)
-                calculationsFetcher.nextPayment(calculationsPayment)
+                calculationsFetcher.nextPayment(payment, loan, lastPayment)
             }
         }
 
