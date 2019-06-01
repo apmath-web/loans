@@ -51,15 +51,19 @@ class Loan(
         val payment = resultPayment.payment
 
         amount -= payment.body
-        remainingTerm--
         regularPaymentAmount = loanDetails.regularPaymentAmount
         remainingTerm = loanDetails.remainingTerm
 
         payments.add(payment)
 
-        if (loanDetails.remainingTerm == 0) {
+//        if (loanDetails.remainingTerm == 0) {
+//            completed = true
+//        }
+        if (payment.fullEarlyRepayment == payment.amount ) {
             completed = true
         }
+
+
         return payment.date
     }
 

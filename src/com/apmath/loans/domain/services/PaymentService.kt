@@ -2,7 +2,7 @@ package com.apmath.loans.domain.services
 
 import com.apmath.loans.domain.data.Type
 import com.apmath.loans.domain.exceptions.LoanCompletedException
-import com.apmath.loans.domain.exceptions.WrongClientId
+import com.apmath.loans.domain.exceptions.ForeignClientIdException
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
 import com.apmath.loans.domain.models.payments.PaymentInterface
@@ -34,7 +34,7 @@ class PaymentService(
         val loan = repository.get(loanId)
 
         if (loan.clientId != clientId) {
-            throw WrongClientId()
+            throw ForeignClientIdException()
         }
 
         if (loan.completed) {
