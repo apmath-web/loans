@@ -1,7 +1,7 @@
 package com.apmath.loans.domain.services
 
 import com.apmath.loans.domain.data.Type
-import com.apmath.loans.domain.exceptions.AlreadyPayException
+import com.apmath.loans.domain.exceptions.LoanCompletedException
 import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
 import com.apmath.loans.domain.models.mappers.getFirstCalculationsPayment
@@ -40,7 +40,7 @@ class PaymentService(
         }
 
         if (loan.completed) {
-            throw AlreadyPayException()
+            throw LoanCompletedException()
         }
 
         val asyncPayment = GlobalScope.async {

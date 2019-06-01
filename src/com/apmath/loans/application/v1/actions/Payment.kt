@@ -5,11 +5,10 @@ import com.apmath.loans.application.v1.exceptions.BadRequestValidationException
 import com.apmath.loans.application.v1.models.incoming.Payment
 import com.apmath.loans.application.v1.models.incoming.toPaymentDomain
 import com.apmath.loans.application.v1.validators.PaymentBuilder
-import com.apmath.loans.domain.exceptions.AlreadyPayException
+import com.apmath.loans.domain.exceptions.LoanCompletedException
 import com.apmath.loans.domain.exceptions.LoanNotFoundException
 import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.services.PaymentServiceInterface
-import com.apmath.validation.simple.Message
 import com.apmath.validation.simple.NullableValidator
 import com.apmath.validation.simple.RequiredValidator
 import io.ktor.application.ApplicationCall
@@ -47,7 +46,7 @@ suspend fun ApplicationCall.v1Payment(
         try {
             paymentService.add(paymentDomain, loanId, clientId)
 
-        } catch (e: AlreadyPayException) {
+        } catch (e: LoanCompletedException) {
             throw BadRequestException("Loan already payed")
 
         } catch (e: WrongClientId) {
