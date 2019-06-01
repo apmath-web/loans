@@ -9,7 +9,7 @@ class ResponseLoan(
 
     var amount: Money? = null,
     var term: Int? = null,
-    var interest: Int? = null,
+    var interest: Float? = null,
     var currency: Currency? = null,
     var date: String? = null,
     var completed: Boolean? = null,
