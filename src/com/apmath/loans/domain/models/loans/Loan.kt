@@ -56,9 +56,6 @@ class Loan(
 
         payments.add(payment)
 
-//        if (loanDetails.remainingTerm == 0) {
-//            completed = true
-//        }
         if (payment.fullEarlyRepayment == payment.amount ) {
             completed = true
         }

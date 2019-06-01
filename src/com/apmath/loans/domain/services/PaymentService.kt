@@ -43,7 +43,7 @@ class PaymentService(
 
         val asyncPayment = GlobalScope.async {
             val isFirstPay = loan.getPayments().isEmpty()
-
+            //TODO:
             if (isFirstPay) {
                 calculationsFetcher.nextNewPayment(payment,loan)
             } else {
