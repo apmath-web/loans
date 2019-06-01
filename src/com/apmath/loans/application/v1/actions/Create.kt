@@ -9,7 +9,7 @@ import com.apmath.loans.application.v1.validators.LoanBuilder
 import com.apmath.loans.domain.exceptions.NoClientException
 import com.apmath.loans.domain.exceptions.NotApprovedException
 import com.apmath.loans.domain.exceptions.WrongAmountException
-import com.apmath.loans.domain.exceptions.WrongClientId
+import com.apmath.loans.domain.exceptions.ForeignClientIdException
 import com.apmath.loans.domain.services.LoanServiceInterface
 import com.apmath.validation.simple.RequiredValidator
 import io.ktor.application.ApplicationCall
@@ -43,7 +43,7 @@ suspend fun ApplicationCall.v1Create(loanService: LoanServiceInterface) {
             throw NotFoundException("Client does not exist")
         } catch (e: NotApprovedException) {
             throw BadRequestException("Application not approved, currently is ${e.status}")
-        } catch (e: WrongClientId) {
+        } catch (e: ForeignClientIdException) {
             throw BadRequestException("Wrong client")
         } catch (e: WrongAmountException) {
             throw BadRequestException("Loan's amount must be bigger than ${e.min} and less than ${e.max}")

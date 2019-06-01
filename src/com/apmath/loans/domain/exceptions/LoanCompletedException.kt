@@ -1,3 +1,3 @@
 package com.apmath.loans.domain.exceptions
 
-class AlreadyPayException : Exception ()
+class LoanCompletedException : Exception ()
