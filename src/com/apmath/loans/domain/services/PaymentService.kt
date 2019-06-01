@@ -4,8 +4,6 @@ import com.apmath.loans.domain.data.Type
 import com.apmath.loans.domain.exceptions.LoanCompletedException
 import com.apmath.loans.domain.exceptions.WrongClientId
 import com.apmath.loans.domain.fetchers.CalculationsFetcherInterface
-import com.apmath.loans.domain.models.mappers.getFirstCalculationsPayment
-import com.apmath.loans.domain.models.mappers.getNextCalculationsPayment
 import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
 import com.apmath.loans.domain.models.payments.PaymentInterface
 import com.apmath.loans.domain.repositories.RepositoryInterface
@@ -46,27 +44,10 @@ class PaymentService(
         val asyncPayment = GlobalScope.async {
             val isFirstPay = loan.getPayments().isEmpty()
 
-//            if (isFirstPay) {
-//                val calculationsPayment
-//                        = getFirstCalculationsPayment(payment,loan)
-//                calculationsFetcher.nextNewPayment(calculationsPayment)
-//            } else {
-//                val lastPayment = loan.getPayments().last()
-//
-//                val calculationsPayment
-//                        = getNextCalculationsPayment(payment, loan, lastPayment)
-//                calculationsFetcher.nextPayment(calculationsPayment)
-//            }
-
             if (isFirstPay) {
-                val calculationsPayment
-                        = getFirstCalculationsPayment(payment,loan)
                 calculationsFetcher.nextNewPayment(payment,loan)
             } else {
                 val lastPayment = loan.getPayments().last()
-
-                val calculationsPayment
-                        = getNextCalculationsPayment(payment, loan, lastPayment)
                 calculationsFetcher.nextPayment(payment, loan, lastPayment)
             }
         }
