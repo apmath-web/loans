@@ -6,7 +6,7 @@ import com.apmath.loans.domain.models.payments.PaymentFromCalculationInterface
 import com.apmath.loans.infrastructure.models.loans.LoanFromCalculationsResult
 import com.apmath.loans.infrastructure.models.payments.PaymentFromCalculation
 
-data class ResultCalculationsPayment(
+class ResultCalculationsPayment(
     override val loan: LoanFromCalculationsResult,
     override val payment: PaymentFromCalculation
 ):ResultCalculationsPaymentInterface

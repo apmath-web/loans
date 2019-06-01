@@ -5,7 +5,7 @@ import com.apmath.loans.domain.data.Money
 import com.apmath.loans.domain.data.Type
 import java.time.LocalDate
 
-data class PaymentFromCalculation(
+class PaymentFromCalculation(
     override val date: LocalDate,
     override val amount: Money,
     override val percent: Int,

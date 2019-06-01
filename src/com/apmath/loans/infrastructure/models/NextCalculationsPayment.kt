@@ -11,7 +11,7 @@ import com.apmath.loans.infrastructure.models.loans.LoanForCalculations
 import com.apmath.loans.infrastructure.models.payments.PaymentDate
 import com.apmath.loans.infrastructure.models.payments.PaymentLast
 
-data class NextCalculationsPayment(
+class NextCalculationsPayment(
     override val loan: LoanForCalculationsInterface,
     override val payment: PaymentDateInterface,
     override val lastPayment: PaymentLastInterface?
