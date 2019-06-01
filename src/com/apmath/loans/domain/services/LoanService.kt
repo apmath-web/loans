@@ -53,7 +53,7 @@ class LoanService(
                 val interest = application.interest
                 val term = application.term
 
-                val loanEmployee = loan.toLoan(interest, term, loanDetails)
+                val loanEmployee = loan.toLoan(interest.toFloat(), term, loanDetails)
 
                 repository.store(loanEmployee)
                 return loanEmployee.id!!
